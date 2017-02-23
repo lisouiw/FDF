@@ -1,0 +1,17 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    mlx.txt                                            :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ltran <marvin@42.fr>                       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2017/02/19 16:34:00 by ltran             #+#    #+#              #
+#    Updated: 2017/02/19 16:45:49 by ltran            ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+mlx_new_image cree nex img ds memo, return void* need to manipule + tard
+
+mlx_put_image_to_window Put img dans windows
+
+mlx_get_data_addr 
