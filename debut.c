@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/23 01:42:20 by ltran             #+#    #+#             */
-/*   Updated: 2017/03/02 08:38:31 by ltran            ###   ########.fr       */
+/*   Updated: 2017/03/02 09:17:15 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_replace_char(char *str, char c, char r)
 			str[i] = r;
 		i++;
 	}
-	printf("len = %zu buf = |%s|\n",ft_strlen(str), str);
+//	printf("len = %zu buf = |%s|\n",ft_strlen(str), str);
 	return (str);
 }
 
@@ -52,10 +52,13 @@ int		main(int argc, char **argv)
 	en = ft_replace_char(buf, '\n', ' ');
 	ent = ft_strsplit(en, ' ');
 	i = 0;
+	printf("En = %s\n", en);
+	printf("X = %i I = %i\n", x, i);
 	while (ent[i])
 	{
-		if (i % x == 0)
-			printf("\n");
+		printf("%d ", ft_atoi(ent[i]));
+		if (i > 0 && i % x == 0)
+			printf(" %i \n", i);
 		i++;
 	}
 	return(fd);
