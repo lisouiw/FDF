@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 18:56:01 by ltran             #+#    #+#             */
-/*   Updated: 2017/02/25 11:29:43 by ltran            ###   ########.fr       */
+/*   Updated: 2017/03/02 15:14:32 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 #define X 2600
 #define Y 1400
-#define BUFF_SIZE 3000
+#define BUFF_SIZE 200000
 
+#include "./libft/libft.h"
 #include "./get_next_line/get_next_line.h"
 #include <sys/uio.h>
 #include <unistd.h>

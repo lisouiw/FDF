@@ -1,17 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debut.c                                            :+:      :+:    :+:   */
+/*   parsing_put.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/23 01:42:20 by ltran             #+#    #+#             */
-/*   Updated: 2017/03/02 09:17:15 by ltran            ###   ########.fr       */
+/*   Created: 2017/03/02 11:09:56 by ltran             #+#    #+#             */
+/*   Updated: 2017/03/02 15:31:33 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "mlx.h"
 #include "fdf.h"
 #include <stdio.h>
+
+int		ft_key(int keycode, void *param);
+
+void	ft_trace(int x1, int x2, int y1, int y2, void *mlx, void *win);
 
 char	*ft_replace_char(char *str, char c, char r)
 {
@@ -24,13 +29,15 @@ char	*ft_replace_char(char *str, char c, char r)
 			str[i] = r;
 		i++;
 	}
-//	printf("len = %zu buf = |%s|\n",ft_strlen(str), str);
 	return (str);
 }
 
 int		main(int argc, char **argv)
 {
-	size_t	y;
+	int		add = 10;
+	void	*mlx;
+	void	*win;
+	size_t	y = 1;
 	char	*en;
 	char	**ent;
 	int		x;
@@ -39,6 +46,8 @@ int		main(int argc, char **argv)
 	char	buf[BUFF_SIZE + 1];
 	int		i = 1;
 	
+	mlx = mlx_init();
+	win = mlx_new_window(mlx, 2800, 2000, "Cake");
 	fd = open(argv[1], O_RDONLY);
 	rd = read(fd, buf, BUFF_SIZE);
 	buf[rd - 1] = '\0';
@@ -52,14 +61,30 @@ int		main(int argc, char **argv)
 	en = ft_replace_char(buf, '\n', ' ');
 	ent = ft_strsplit(en, ' ');
 	i = 0;
-	printf("En = %s\n", en);
-	printf("X = %i I = %i\n", x, i);
 	while (ent[i])
 	{
-		printf("%d ", ft_atoi(ent[i]));
-		if (i > 0 && i % x == 0)
-			printf(" %i \n", i);
+		rd = (i % x) + 1;
+		printf("%i ", rd);
+		if (i > 0 && rd == 1)
+			y++;
+		ft_trace(add * rd, (rd + 1) * add, y * add, y * add, mlx, win);
 		i++;
 	}
+	printf("Rd/X = %i && Y = %zu\n", rd, y);
+	i = 0;
+	while (y > 1)
+	{
+		rd = (i % x) + 1;
+		ft_trace(add * rd, rd * add, (y - 1) * add, y * add, mlx, win);
+		if (i > 0 && i % x == 0)
+		{
+			ft_trace(((x + 1) * add), (1 + x) * add, (y - 1) * add, y * add, mlx, win);
+			y--;
+		}
+		i++;
+	}
+	printf("Rd/X = %i && Y = %zu\n", rd, y);
+	mlx_key_hook(win, ft_key, 0);
+	mlx_loop(mlx);
 	return(fd);
 }

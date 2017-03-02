@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/28 14:16:32 by ltran             #+#    #+#             */
-/*   Updated: 2017/02/28 08:33:43 by ltran            ###   ########.fr       */
+/*   Updated: 2017/03/02 13:33:26 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_diagonal_ey(int ex, int ey , int x1, int y1, int x2, int y2, void *mlx, 
 		iy = -1;
 	dx = 2*ex;
 	dy = 2*ey;
-	printf("i = %i || ex = %i || ey = %i || y1 = %i || x1 = %i || ix = %i || iy = %i || dy = %i ||dx = %i\n", i, ex, ey, y1, x1, ix, iy, dy, dx);
+	printf("i = %i || ex = %i || ey = %i || y1 = %i || x1 = %i || x2 = %i || ix = %i || iy = %i || dy = %i ||dx = %i\n", i, ex, ey, y1, x1, x2, ix, iy, dy, dx);
 	while (i <= n)
 	{
 		mlx_pixel_put(mlx, win, x1, y1, 0X00FFCCCC);
@@ -66,7 +66,7 @@ void	ft_diagonal_ex(int ex, int ey , int x1, int y1, int x2, int y2, void *mlx, 
 		ix = -1;
 	if (y1 > y2)
 		iy = -1;
-	printf("i = %i || ex = %i || ey = %i || y1 = %i || x1 = %i || ix = %i || iy = %i || dy = %i ||dx = %i\n", i, ex, ey, y1, x1, ix, iy, dy, dx);
+	printf("i = %i || ex = %i || ey = %i || y1 = %i || x1 = %i || x2 = %i || ix = %i || iy = %i || dy = %i ||dx = %i\n", i, ex, ey, y1, x1, x2, ix, iy, dy, dx);
 	while (i <= m)
 	{
 		mlx_pixel_put(mlx, win, x1, y1, 0X00FFCCCC);
@@ -81,35 +81,34 @@ void	ft_diagonal_ex(int ex, int ey , int x1, int y1, int x2, int y2, void *mlx, 
 	}
 }
 
-int     main()
+void     ft_trace(int x1, int x2, int y1, int y2, void *mlx, void *win)
 {
-	int     y2 = 600;
+/*	int     y2 = 600;
 	int     y1 = 400;
 	int     x2 = 100;
 	int     x1 = 500;
-	//x1>500 y1>600 EX = 400 EY = 200
-	//x2>500 y2>600 EX = 400 EY = 200
+	x1>500 y1>600 EX = 400 EY = 200
+	x2>500 y2>600 EX = 400 EY = 200*/
 	int     ex = abs(x2 - x1);
 	int     ey = abs(y2 - y1);
 	printf("EX = %i ||||||| EY = %i\n", ex, ey);
-	void	*mlx;
+/*	void	*mlx;
 	void	*win;
 
 	mlx = mlx_init();
-	win = mlx_new_window(mlx, 1000, 1000, "CAKE");
+	win = mlx_new_window(mlx, 1000, 1000, "CAKE");*/
 	if (ey > ex)
 	{
-		printf("Coucou EY\n");
+//		printf("Coucou EY\n");
 		ft_diagonal_ey(ex, ey, x1, y1, x2, y2, mlx, win);
 	}
 	else
 	{
-		printf("Coucou EX\n");
+//		printf("Coucou EX\n");
 		ft_diagonal_ex(ex, ey, x1, y1, x2, y2, mlx, win);
 	}
 	mlx_pixel_put(mlx, win, x1, y1, 0X0000FFFF);
 	mlx_pixel_put(mlx, win, x2, y2, 0X0000FFFF);
-	mlx_key_hook(win, ft_key, 0);
-	mlx_loop(mlx);
-	return (0);
+//	mlx_key_hook(win, ft_key, 0);
+//	mlx_loop(mlx);
 }
