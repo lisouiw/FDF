@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 18:56:01 by ltran             #+#    #+#             */
-/*   Updated: 2017/02/23 11:50:25 by ltran            ###   ########.fr       */
+/*   Updated: 2017/02/25 11:29:43 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-void	ft_get_point(char **ent);
+int		ft_get_point(int x1, int x2, int y1, int y2);
 
 typedef	struct		s_w
 {
@@ -31,9 +31,9 @@ typedef	struct		s_w
 	struct s_w		*next;
 }					t_w;
 
-typedef	struct		s_l
-{
-	t_w		*babe;
-}					t_l;
+//typedef	struct		s_l
+//{
+//	t_w		*babe;
+//}					t_l;
 
 #endif

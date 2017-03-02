@@ -1,40 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   test.fct.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/20 02:58:51 by ltran             #+#    #+#             */
-/*   Updated: 2017/02/25 00:22:06 by ltran            ###   ########.fr       */
+/*   Created: 2017/02/28 09:04:58 by ltran             #+#    #+#             */
+/*   Updated: 2017/02/28 09:18:39 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stdlib.h"
-#include "mlx.h"
-#include "stdio.h"
+#include <string.h>
+#include <stdio.h>
+#include <unistd.h>
 
-int		ft_key(int keycode, void *param)
-{
-	printf("COUCOU ===> %d\n", keycode);
-	if (keycode == 53)
-		exit(0);
-	return (0);
-}
+void	*ft_strrchr(const char *s, int c);
 
 int		main()
 {
-	void	*mlx;
-	void	*win;
-	int		x;
-	int		y;
+	char	*str = "sjsjhs\neeee\nhddj";
 
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, 100, 100, "cake");
-	y = 30;
-	x = 30;
-	while ()
-	mlx_pixel_put(mlx, win, x, y, 0X00FFCCCC, "42");
-	mlx_key_hook(win, ft_key, 0);
-	mlx_loop(mlx);
+	printf("|%s| ",str = ft_strrchr(str, '\n'));
+	printf("lenght = %lu\n", strlen(str));
+	return (0);
 }

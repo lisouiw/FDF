@@ -6,11 +6,10 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/28 14:16:32 by ltran             #+#    #+#             */
-/*   Updated: 2017/02/23 14:16:44 by ltran            ###   ########.fr       */
+/*   Updated: 2017/02/25 11:29:01 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
 /*#include "stdlib.h"
 #include "mlx.h"
 #include "stdio.h"
