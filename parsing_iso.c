@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:09:56 by ltran             #+#    #+#             */
-/*   Updated: 2017/03/05 13:47:01 by ltran            ###   ########.fr       */
+/*   Updated: 2017/03/05 15:46:26 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,26 +64,23 @@ int		main(int argc, char **argv)
 	while (ent[i])
 	{
 		rd = (i % x) + 1;
-		printf("%i ", rd);
 		if (i > 0 && rd == 1)
 			y++;
-		ft_trace(add * rd, (rd + 1) * add, y * add, y * add, mlx, win);
+		ft_trace(add * (rd + ft_atoi(ent[i])), (ft_atoi(ent[i + 1]) + rd + 1) * add, y * add, y * add, mlx, win);
 		i++;
 	}
-	printf("Rd/X = %i && Y = %zu\n", rd, y);
 	i = 0;
-	while (y > 1)
+/*	while (y > 1)
 	{
 		rd = (i % x) + 1;
-		ft_trace(add * rd, rd * add, (y - 1) * add, y * add, mlx, win);
+		ft_trace(add * (rd + ft_atoi(ent[i])), (rd + ft_atoi(ent[i])) * add, (y - 1) * add, y * add, mlx, win);
 		if (i > 0 && i % x == 0)
 		{
-			ft_trace(((x + 1) * add), (1 + x) * add, (y - 1) * add, y * add, mlx, win);
+			ft_trace(((ft_atoi(ent[i]) + x + 1) * add), (1 + x + ft_atoi(ent[i])) * add, (y - 1) * add, y * add, mlx, win);
 			y--;
 		}
 		i++;
-	}
-	printf("Rd/X = %i && Y = %zu\n", rd, y);
+	}*/
 	mlx_key_hook(win, ft_key, 0);
 	mlx_loop(mlx);
 	return(fd);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_put.c                                      :+:      :+:    :+:   */
+/*   iso_carre.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 11:09:56 by ltran             #+#    #+#             */
-/*   Updated: 2017/03/05 13:47:01 by ltran            ###   ########.fr       */
+/*   Created: 2017/03/05 13:34:13 by ltran             #+#    #+#             */
+/*   Updated: 2017/03/05 13:44:48 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,58 @@
 #include "fdf.h"
 #include <stdio.h>
 
+int		ft_key(int keycode, void *param);
+
+void	ft_trace(int x1, int x2, int y1, int y2, void *mlx, void *win);
+
+void	ft_isometrie(int x, int y, void *mlx, void *win)
+{
+	int		ad = 50;
+	int		tmpx = x;
+	int		tmpy = y;
+	int		x1 = x + 1;
+	int		x2 = y;
+	int		y1;
+
+	x = ((tmpx + tmpy) / 2);
+	y = ((tmpx - tmpy) / 2);
+	y1 = ((x1 - tmpy) / 2);
+	x1 = ((x1 + tmpy) / 2);
+	printf("x = %i || y = %i && x1 = %i || y1 = %i\n", x , y, x1, y1);
+	ft_trace(ad * x, x1 * ad, y * ad, y1 * ad, mlx, win);
+
+}
+
+int		main()
+{	
+	void	*mlx;
+	void	*win;
+
+	mlx = mlx_init();
+	win = mlx_new_window(mlx, 2800, 2000, "Cake");
+	ft_isometrie(1, 10, mlx, win);
+	ft_isometrie(20, 10, mlx, win);
+	mlx_key_hook(win, ft_key, 0);
+	mlx_loop(mlx);
+	return (0);
+}
+
+
+
+
+
+/*	if (x < y && x < 0)
+	{
+		y = y + abs(x);
+		x = 0;
+	}
+	else if (x > y && y < 0)
+	{
+		x = abs(y);
+		y = 0;
+	}*/
+
+/*
 int		ft_key(int keycode, void *param);
 
 void	ft_trace(int x1, int x2, int y1, int y2, void *mlx, void *win);
@@ -64,13 +116,11 @@ int		main(int argc, char **argv)
 	while (ent[i])
 	{
 		rd = (i % x) + 1;
-		printf("%i ", rd);
 		if (i > 0 && rd == 1)
 			y++;
 		ft_trace(add * rd, (rd + 1) * add, y * add, y * add, mlx, win);
 		i++;
 	}
-	printf("Rd/X = %i && Y = %zu\n", rd, y);
 	i = 0;
 	while (y > 1)
 	{
@@ -83,8 +133,7 @@ int		main(int argc, char **argv)
 		}
 		i++;
 	}
-	printf("Rd/X = %i && Y = %zu\n", rd, y);
 	mlx_key_hook(win, ft_key, 0);
 	mlx_loop(mlx);
 	return(fd);
-}
+}*/
