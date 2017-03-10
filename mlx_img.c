@@ -6,32 +6,51 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 22:47:20 by ltran             #+#    #+#             */
-/*   Updated: 2017/03/08 01:45:26 by ltran            ###   ########.fr       */
+/*   Updated: 2017/03/10 17:02:41 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
+/*
+ * structure pour la fonction get data addr
+ * et qui put pixel avec img_to_win
+ *Declaration du brdel
+ * */
 
-void	ft_fill_img(char *addr, int x, int y, int color)
+#include "fdf.h"
+#include "mlx.h"
+#include <stdio.h>
+
+void	ft_put_pixel(t_l info, int x, int y, int color)
 {
-	mlx_pixel_put(mlx, win, x, y, color)
+	int i;
+	
+	i = info.size * y + x * 4;
+	info.addr[i] = color & 0XFF;
+	info.addr[++i] = color >> 8 & 0XFF;
+	info.addr[++i] = color >> 16 & 0XFF;
 }
 
 int		main()
 {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*addr;
-	int		*bit;
-	int		*size;
+	t_l		w;
+	int		x = 10;
+	int		y = 10;
 
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, 1000, 1000, "Cae");
-	img = mlx_new_image(mlx, 1000, 1000);
-	addr = mlx_get_data_addr(img, bit, size, 0);
-	ft_fill_img(addr, 1, 2,12);
-	mlx_put_image_to_window(mlx, win, img, 50, 50);
-	mlx_loop(mlx);
+	w.mlx = mlx_init();
+	w.win = mlx_new_window(w.mlx, 1000, 1000, "Coffee");
+	w.img = mlx_new_image(w.mlx, 1000, 1000);
+	w.addr = mlx_get_data_addr(w.img, &w.bit, &w.size, &w.endian);
+	printf("bit = %i, Size = %i, Endian = %i\n", w.bit, w.size, w.endian);
+	while (y < 500)
+	{
+		ft_put_pixel(w, x++, y, 0X002F4F4F);
+		if (x >= 700)
+		{
+			y++;
+			x = 10;
+		}
+	}
+	mlx_put_image_to_window(w.mlx, w.win, w.img, 50, 50);
+	mlx_loop(w.mlx);
 	return (0);
 }

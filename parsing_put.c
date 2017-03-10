@@ -6,17 +6,17 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:09:56 by ltran             #+#    #+#             */
-/*   Updated: 2017/03/05 13:47:01 by ltran            ###   ########.fr       */
+/*   Updated: 2017/03/10 16:37:24 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
+ *Declaration du bordel
+ * */
 
 #include "mlx.h"
 #include "fdf.h"
 #include <stdio.h>
-
-int		ft_key(int keycode, void *param);
-
-void	ft_trace(int x1, int x2, int y1, int y2, void *mlx, void *win);
 
 char	*ft_replace_char(char *str, char c, char r)
 {
@@ -67,7 +67,7 @@ int		main(int argc, char **argv)
 		printf("%i ", rd);
 		if (i > 0 && rd == 1)
 			y++;
-		ft_trace(add * rd, (rd + 1) * add, y * add, y * add, mlx, win);
+		ft_trace(add * rd, (rd + 1) * add, y * add, y * add, mlx, win); // ft-trace nexiste plus mais replace par ft_get_point
 		i++;
 	}
 	printf("Rd/X = %i && Y = %zu\n", rd, y);
