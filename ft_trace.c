@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 15:26:57 by ltran             #+#    #+#             */
-/*   Updated: 2017/03/10 17:01:48 by ltran            ###   ########.fr       */
+/*   Updated: 2017/03/13 15:39:58 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@
  * */
 
 #include "fdf.h"
-#include <stdlib.h>
-#include "mlx.h"
-#include <stdio.h>
 
 int		ft_key(int keycode, void *param)
 {

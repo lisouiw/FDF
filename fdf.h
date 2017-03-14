@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 18:56:01 by ltran             #+#    #+#             */
-/*   Updated: 2017/03/10 17:02:29 by ltran            ###   ########.fr       */
+/*   Updated: 2017/03/13 15:38:36 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include "mlx.h"
 
 typedef	struct		s_l
 {
@@ -41,5 +42,6 @@ int		ft_key(int keycode, void *param);
 void	ft_diagonal_ex(int ex, int ey, int x1, int y1, int x2, int y2);
 void	ft_diagonal_ey(int ex, int ey, int x1, int y1, int x2, int y2);
 char	*ft_replace_char(char *str, char c, char r);
+void	ft_isometrie(int *x, int *y);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:09:56 by ltran             #+#    #+#             */
-/*   Updated: 2017/03/13 17:58:49 by ltran            ###   ########.fr       */
+/*   Updated: 2017/03/13 15:09:55 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,44 +53,57 @@ char	*ft_replace_char(char *str, char c, char r)
 int		main(int argc, char **argv)
 {
 	t_l				w;
+	int				add = 10;
+	size_t			y = 0;
+	char			*map;
+	char			**line;
+	int				x;
 	unsigned int	fd;
 	int				rd;
-	size_t			height;
-	int				width;
-	char			*map;
-	char			**pt;
 	char			buf[BUFF_SIZE + 1];
 	int				i = 0;
-
-	int				x2;
-	int				y2;
-	int				x1;
-	int				y1;
-	int				y = 1;
-
+	
 	w.mlx = mlx_init();
 	w.win = mlx_new_window(w.mlx, 2800, 2000, "Cake");
-	if (!(fd = open(argv[1], O_RDONLY)))
+	if (!(fd = open(argv[1], O_RDONLY))
 			return (-1);
 	rd = read(fd, buf, BUFF_SIZE);
-	width = ft_map_sqr(buf, rd, 1, &height); 
+/*	buf[rd] = '\0';
+	buf[rd - 1] = '\0';
+	en = ft_strrchr(buf, '\n');
+	ent = ft_strsplit(en, ' ');
+	while (ent[i] != '\0')
+		++i;
+	x = i;
+	free(ent);
+	buf[rd - 1] = '\n';*/
+	x = ft_map_sqr(buf, rd, 1, &y); 
 	map = ft_replace_char(buf, '\n', ' ');
-	pt = ft_strsplit(map, ' ');
-	while (pt[i])
+	line = ft_strsplit(map, ' ');
+	while (ent[i])
 	{
-		y1 = ft_atoi(pt[i]);
-		y2 = ft_atoi(pt[i + 1]);
-		ft_isometrie(&x1, &y1 + y, &x2 + 1, &y2 + y);
-		ft_get_point(x1, y1, x2, y2);
-		if (i % x == 0)
-		{
+		rd = (i % x) + 1;
+		printf("%i ", rd);
+		if (i > 0 && rd == 1)
 			y++;
-			x1 = 0;
+		ft_trace(add * rd, (rd + 1) * add, y * add, y * add; // ft-trace nexiste plus mais replace par ft_get_point
+		i++;
+	}
+	printf("Rd/X = %i && Y = %zu\n", rd, y);
+	i = 0;
+	while (y > 1)
+	{
+		rd = (i % x) + 1;
+		ft_trace(add * rd, rd * add, (y - 1) * add, y * add);
+		if (i > 0 && i % x == 0)
+		{
+			ft_trace(((x + 1) * add), (1 + x) * add, (y - 1) * add, y * add);
+			y--;
 		}
 		i++;
-		x1++;
 	}
+	printf("Rd/X = %i && Y = %zu\n", rd, y);
 	mlx_key_hook(w.win, ft_key, 0);
 	mlx_loop(w.mlx);
-	return (0);
+	return(0);
 }
