@@ -6,14 +6,9 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 15:26:57 by ltran             #+#    #+#             */
-/*   Updated: 2017/03/13 15:39:58 by ltran            ###   ########.fr       */
+/*   Updated: 2017/03/17 16:59:48 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
- * L'algo pour trace des lignes
- * Declaration du bordel + Key
- * */
 
 #include "fdf.h"
 
@@ -26,6 +21,7 @@ int		ft_key(int keycode, void *param)
 
 void	ft_diagonal_ey(int ex, int ey , int x1, int y1, int x2, int y2)
 {
+	t_l		info;
 	int     i = 0;
 	int		dx;
 	int		dy;
@@ -42,7 +38,7 @@ void	ft_diagonal_ey(int ex, int ey , int x1, int y1, int x2, int y2)
 	printf(" EY ==> i = %i || ex = %i || ey = %i || y1 = %i || x1 = %i || ix = %i || iy = %i || dy = %i ||dx = %i\n", i, ex, ey, y1, x1, ix, iy, dy, dx);
 	while (i <= n)
 	{
-		ft_pixel_put(t_l info, x1, y1, 0X00FFCCCC);
+		ft_pixel_put(info, x1, y1, 0X00FFCCCC);
 		i++;
 		y1 += iy;
 		ey -= dx;
@@ -56,6 +52,7 @@ void	ft_diagonal_ey(int ex, int ey , int x1, int y1, int x2, int y2)
 
 void	ft_diagonal_ex(int ex, int ey , int x1, int y1, int x2, int y2)
 {
+	t_l		info;
 	int     i = 0;
 	int		dx;
 	int		dy;
@@ -72,7 +69,7 @@ void	ft_diagonal_ex(int ex, int ey , int x1, int y1, int x2, int y2)
 	printf("EX ==> i = %i || ex = %i || ey = %i || y1 = %i || x1 = %i || ix = %i || iy = %i || dy = %i ||dx = %i\n", i, ex, ey, y1, x1, ix, iy, dy, dx);
 	while (i <= m)
 	{
-		ft_pixel_put(t_l info, x1, y1, 0X00FFCCCC);
+		ft_pixel_put(info, x1, y1, 0X00FFCCCC);
 		i++;
 		x1 += ix;
 		ex -= dy;
@@ -84,7 +81,7 @@ void	ft_diagonal_ex(int ex, int ey , int x1, int y1, int x2, int y2)
 	}
 }
 
-int     ft_get_point(int x1, int x2, int y1, int y2)
+int     ft_get_point(int x1, int y1, int x2, int y2)
 {
 	int     ex = abs(x2 - x1);
 	int     ey = abs(y2 - y1);

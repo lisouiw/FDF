@@ -1,7 +1,33 @@
 #include <stdio.h>
 //#include <stdlib.h>
 
-void decoupeMinutes(int *heures, int *minutes);
+void	ft_full(char *tab, int len)
+{
+	int		i = 0;
+	printf("coucou\n");
+	tab[len] = '\0';
+	printf("coucou\n");
+
+	while (tab[i])
+	{
+		tab[i] = '1';
+		i++;
+	printf("coucou\n");
+	}
+}
+
+int		main()
+{
+	char	*tab;
+	int		len = 10;
+
+	printf("coucou\n");
+	ft_full(&(*tab), len);
+	printf("coucou\n");
+	printf("%s\n", tab);
+
+}
+/*void decoupeMinutes(int *heures, int *minutes);
 
 int main(int argc, char *argv[])
 {
@@ -17,4 +43,4 @@ void decoupeMinutes(int *heures, int *minutes)
 {
 	*heures = *minutes / 60;
 	*minutes = *minutes % 60;
-}
+}*/

@@ -6,21 +6,13 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 22:47:20 by ltran             #+#    #+#             */
-/*   Updated: 2017/03/10 17:02:41 by ltran            ###   ########.fr       */
+/*   Updated: 2017/03/17 17:00:06 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
- * structure pour la fonction get data addr
- * et qui put pixel avec img_to_win
- *Declaration du brdel
- * */
-
 #include "fdf.h"
-#include "mlx.h"
-#include <stdio.h>
 
-void	ft_put_pixel(t_l info, int x, int y, int color)
+void	ft_pixel_put(t_l info, int x, int y, int color)
 {
 	int i;
 	
@@ -30,7 +22,7 @@ void	ft_put_pixel(t_l info, int x, int y, int color)
 	info.addr[++i] = color >> 16 & 0XFF;
 }
 
-int		main()
+/*int		main()
 {
 	t_l		w;
 	int		x = 10;
@@ -53,4 +45,4 @@ int		main()
 	mlx_put_image_to_window(w.mlx, w.win, w.img, 50, 50);
 	mlx_loop(w.mlx);
 	return (0);
-}
+}*/
