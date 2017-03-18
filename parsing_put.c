@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:09:56 by ltran             #+#    #+#             */
-/*   Updated: 2017/03/18 15:44:37 by ltran            ###   ########.fr       */
+/*   Updated: 2017/03/18 16:31:15 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,19 @@ int		ft_map_sqr(char *map, int len, int x, int *y)
 	char	**line;
 	int		i = 0;
 	int		e = 0;
+	char	*tmp;
 
-	map[len - 1] = '\0';
-	line = ft_strsplit(ft_strrchr(map, '\n'), ' ');
+	tmp = ft_strdup(map);
+	tmp[len - 1] = '\0';
+	line = ft_strsplit(ft_strrchr(tmp, '\n'), ' ');
 	while (line[i++] != '\0')
 		++x;
-	map = ft_replace_char(map, '\n', '\0');
+	tmp = ft_replace_char(tmp, '\n', '\0');
 	i = 0;
-	while (map[e] != '\0')
+	while (tmp[e] != '\0')
 	{
 		i = 0;
-		line = ft_strsplit(map, ' ');
+		line = ft_strsplit(tmp, ' ');
 		while (line[i] != '\0')
 			i++;
 		if (i != x)
@@ -41,8 +43,10 @@ int		ft_map_sqr(char *map, int len, int x, int *y)
 char	*ft_replace_char(char *str, char c, char r)
 {
 	int		i;
+	char	*tmp;
 
 	i = 0;
+	tmp = ft_strdup(str);
 	while (str[i] != '\0')
 	{
 		if (str[i] == c)
@@ -92,10 +96,10 @@ int		main(int argc, char **argv)
 	buf[w.rd] = '\0';
 	printf("fd = %i && rd = %i\n======BUF======\n|%s|\n", w.fd, w.rd, buf);
 	w.width = ft_map_sqr(buf, w.rd, 0, &w.height); 
-	printf("width = %i && height = %i\n", w.width, w.height);
 	map = ft_replace_char(buf, '\n', ' ');
-//	printf("width = %i && height = %i\n ===========MAP=========\n%s", w.width, w.height,map);
-/*	pt = ft_strsplit(map, ' ');
+	printf("width = %i && height = %i\n=========BUF=======\n%s\n ===========MAP=========\n%s", w.width, w.height, buf, map);
+	pt = ft_strsplit(map, ' ');
+	/*
 	h = ft_array_int(*pt, width * height + 1, &(*x), width);
 	while (h[i])
 	{
