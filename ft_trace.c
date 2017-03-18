@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 15:26:57 by ltran             #+#    #+#             */
-/*   Updated: 2017/03/17 16:59:48 by ltran            ###   ########.fr       */
+/*   Updated: 2017/03/18 13:39:13 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		ft_key(int keycode, void *param)
 	return (0);
 }
 
-void	ft_diagonal_ey(int ex, int ey , int x1, int y1, int x2, int y2)
+/*void	ft_diagonal_ey(int ex, int ey , int x1, int y1, int x2, int y2)
 {
 	t_l		info;
 	int     i = 0;
@@ -95,9 +95,7 @@ int     ft_get_point(int x1, int y1, int x2, int y2)
 		ft_diagonal_ey(ex, ey, x1, y1, x2, y2);
 	else
 		ft_diagonal_ex(ex, ey, x1, y1, x2, y2);
-	mlx_pixel_put(mlx, win, x1, y1, 0X0000FFFF);
-	mlx_pixel_put(mlx, win, x2, y2, 0X0000FFFF);
-	mlx_key_hook(win, ft_key, 0);
-	mlx_loop(mlx);
+	mlx_pixel_put(info.mlx, info.win, x1, y1, 0X0000FFFF);
+	mlx_pixel_put(info.mlx, info.win, x2, y2, 0X0000FFFF);
 	return (0);
-}
+}*/

@@ -1,6 +1,31 @@
 #include <stdio.h>
 //#include <stdlib.h>
 
+=======================================================================
+
+typedef	struct	s_l
+{
+	int			x;
+}				t_l;
+
+void	ft_onverra(int *i)
+{
+	*i = 100;
+}
+
+int		main()
+{
+	t_l		w;
+
+	w.x = 1;
+	printf("%i\n", w.x);
+	ft_onverra(&w.x);
+	printf("%i\n", w.x);
+	return (0);
+}
+/*
+=======================================================================
+
 void	ft_full(char *tab, int len)
 {
 	int		i = 0;
@@ -27,7 +52,10 @@ int		main()
 	printf("%s\n", tab);
 
 }
-/*void decoupeMinutes(int *heures, int *minutes);
+
+=======================================================================
+
+void decoupeMinutes(int *heures, int *minutes);
 
 int main(int argc, char *argv[])
 {
