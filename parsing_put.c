@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:09:56 by ltran             #+#    #+#             */
-/*   Updated: 2017/03/18 16:31:15 by ltran            ###   ########.fr       */
+/*   Updated: 2017/03/20 18:35:39 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,22 +56,23 @@ char	*ft_replace_char(char *str, char c, char r)
 	return (str);
 }
 
-int		*ft_array_int(char *pt, int len, int *x, int width)
+int		*ft_array_int(char **pt, int len, int x, int width)
 {
 	int		*ent;
 	int		i;
-
+	
 	i = 0;
 	if (!(ent = (int*)malloc(sizeof(int) * len)))
 		return (NULL);
-	if (!(x = (int*)malloc(sizeof(int) * len)))
-		return (NULL);
 	ent[len] = '\0';
-	x[len] = '\0';
-	while (ent[i])
+	while (x == 0 && pt[i] != NULL)
 	{
-		ent[i] = ft_atoi(&pt[i]);
-		x[i] = i % width;
+		ent[i] = ft_atoi(pt[i]);
+		i++;
+	}
+	while (x == 1 && pt[i] != NULL)
+	{
+		ent[i] = (i % width) + 1;
 		i++;
 	}
 	return (ent);
@@ -79,43 +80,49 @@ int		*ft_array_int(char *pt, int len, int *x, int width)
 
 int		main(int argc, char **argv)
 {
-	t_l				w;
+	t_l				info;
 	char			*map;
 	char			**pt;
 	char			buf[BUFF_SIZE + 1];
-	int				i = 0;
+	int				i;
 	int				y = 1;
 	int				*h;
 	int				*x;
+	int				cake;
 
-	w.mlx = mlx_init();
-	w.win = mlx_new_window(w.mlx, 2800, 2000, "Cake");
-	if (!(w.fd = open(argv[1], O_RDONLY)))
+	i = 0;
+	info.mlx = mlx_init();
+	info.win = mlx_new_window(info.mlx, X, Y, "Cake");
+	if (!(info.fd = open(argv[1], O_RDONLY)))
 			return (-1);
-	w.rd = read(w.fd, buf, BUFF_SIZE);
-	buf[w.rd] = '\0';
-	printf("fd = %i && rd = %i\n======BUF======\n|%s|\n", w.fd, w.rd, buf);
-	w.width = ft_map_sqr(buf, w.rd, 0, &w.height); 
+	info.rd = read(info.fd, buf, BUFF_SIZE);
+	buf[info.rd] = '\0';
+//	printf("fd = %i && rd = %i\n======BUF======\n|%s|\n", w.fd, w.rd, buf);
+	info.width = ft_map_sqr(buf, info.rd, 0, &info.height); 
 	map = ft_replace_char(buf, '\n', ' ');
-	printf("width = %i && height = %i\n=========BUF=======\n%s\n ===========MAP=========\n%s", w.width, w.height, buf, map);
+//	printf("width = %i && height = %i\n=========BUF=======\n%s\n===========MAP=========\n%s\n", w.width, w.height, buf, map);
 	pt = ft_strsplit(map, ' ');
-	/*
-	h = ft_array_int(*pt, width * height + 1, &(*x), width);
-	while (h[i])
+	h = ft_array_int(pt, info.width * info.height + 1, 0, info.width);
+	x = ft_array_int(pt, info.width * info.height + 1, 1, info.width);
+	cake = info.height * info.width;
+	while (i < cake && i < 9)
 	{
-		ft_isometrie(&x[i], &h[i] + y, &x[i + 1], &h[i + 1] + y);
-		ft_get_point(x[i], h[i], x[i + 1], h[i + 1]);
-		if (++i % width == 0 && y < height)
+	//	ft_isometrie(&x[i], &h[i] + y, &x[i + 1], &h[i + 1] + y);
+		printf("I===>%i====Y===> %i && x => %i && h => %i\n", i, y, x[i], h[i]);
+		ft_get_point(x[i], h[i], x[i + 1], h[i + 1], &info);
+		if (++i % info.width == 0 && y < info.height)
 			y++;
 	}
-	while (y > 0 && 0 <= i--)
+	printf("MA BITE \n");
+	mlx_put_image_to_window(info.mlx, info.win, info.img, X, Y);
+/*	while (y > 0 && 0 <= i--)
 	{
 		ft_isometrie(&x[i - width], &h[i - width] + y - 1, &x[i], &h[i] + y);
 		ft_get_point(x[i - 1], h[i - 1], x[i], h[i]);
 		if (i % width == 0 && y < 0 )
 			y--;
 	}*/
-	mlx_key_hook(w.win, ft_key, 0);
-	mlx_loop(w.mlx);
+	mlx_key_hook(info.win, ft_key, 0);
+	mlx_loop(info.mlx);
 	return (0);
 }

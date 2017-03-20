@@ -6,20 +6,21 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 22:47:20 by ltran             #+#    #+#             */
-/*   Updated: 2017/03/18 13:34:46 by ltran            ###   ########.fr       */
+/*   Updated: 2017/03/20 18:35:35 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_pixel_put(t_l info, int x, int y, int color)
+void	ft_pixel_put(t_l *info, int x, int y, int color)
 {
 	int i;
-	
-	i = info.size * y + x * 4;
-	info.addr[i] = color & 0XFF;
-	info.addr[++i] = color >> 8 & 0XFF;
-	info.addr[++i] = color >> 16 & 0XFF;
+
+	i = info->size * y + x * 4;
+//	printf("i = %i && size = %i\n", i, info->size);
+	info->addr[i] = color & 0XFF;
+	info->addr[++i] = color >> 8 & 0XFF;
+	info->addr[++i] = color >> 16 & 0XFF;
 }
 
 /*int		main()
