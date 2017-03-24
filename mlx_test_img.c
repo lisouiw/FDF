@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 22:47:20 by ltran             #+#    #+#             */
-/*   Updated: 2017/03/22 04:51:26 by ltran            ###   ########.fr       */
+/*   Updated: 2017/03/22 02:04:46 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_pixel_put(t_l *info, int x, int y, int color)
 	info->addr[++i] = color >> 16 & 0XFF;
 }
 
-/*int		main()
+int		main()
 {
 	t_l		w;
 	int		x = 10;
@@ -36,7 +36,7 @@ void	ft_pixel_put(t_l *info, int x, int y, int color)
 	printf("bit = %i, Size = %i, Endian = %i\n", w.bit, w.size, w.endian);
 	while (y < 500)
 	{
-		ft_put_pixel(w, x++, y, 0X002F4F4F);
+		ft_pixel_put(&w, x++, y, 0X002F4F4F);
 		if (x >= 700)
 		{
 			y++;
@@ -46,4 +46,4 @@ void	ft_pixel_put(t_l *info, int x, int y, int color)
 	mlx_put_image_to_window(w.mlx, w.win, w.img, 50, 50);
 	mlx_loop(w.mlx);
 	return (0);
-}*/
+}

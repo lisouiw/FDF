@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 18:56:01 by ltran             #+#    #+#             */
-/*   Updated: 2017/03/20 17:15:51 by ltran            ###   ########.fr       */
+/*   Updated: 2017/03/23 17:31:36 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 
 typedef	struct		s_l
 {
+	char	buf[BUFF_SIZE + 1];
 	void	*mlx;
 	void	*win;
 	void	*img;
@@ -39,6 +40,7 @@ typedef	struct		s_l
 	int 	width;
 }					t_l;
 
+int		ft_check(int argc, char **argv, t_l *info);
 int		ft_map_sqr(char *map, int len, int x, int *y);
 char	*ft_replace_char(char *str, char c, char r);
 int		*ft_array_int(char **pt, int len, int x, int width);
