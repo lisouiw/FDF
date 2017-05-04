@@ -17,8 +17,8 @@
 #define Y 1400
 #define BUFF_SIZE 200000
 
-#include "mlx.h"
-#include "../libft/libft.h"
+//#include "mlx.h"
+#include "./libft/libft.h"
 #include <sys/uio.h>
 #include <unistd.h>
 #include <fcntl.h>
