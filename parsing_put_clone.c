@@ -12,37 +12,53 @@
 
 #include "fdf.h"
 
-int	nb_line(char *buf, int *i, int nb)
+int	**cut_all(char *buf, int i, int ln, int a)
 {
-	while (buf[*i] != '\n')
+	char	**line;
+	char	**lise;
+	char	**lin;
+	int	**nb;
+	unsigned int	in;
+	int	p = 0;
+
+	line = ft_strsplit(buf,'\n');
+	while (line[ln])
+		ln++;
+	lin = ft_strsplit(buf, ' ');
+	nb = (int**)malloc(ln*sizeof(int*));
+	while (i < ln)
 	{
-		while (buf[*i] == ' ')
-			(*i)++;
-		if (buf[*i] >= '0' && buf[*i] <= '9')
+		in = 0;
+		a  = 0;
+		lise = ft_strsplit(line[i], ' ');
+		while (lise[a])
+			a++;
+		nb[i] = (int*)malloc(a*sizeof(int));
+		if (p > 0 && ft_strrchr(lin[p-1], '\n') != NULL)
 		{
-			nb++;
-			while (buf[*i] != ' ')
-				(*i)++;
+			printf("a-> %i i-> %i line %s\n",a,i, lin[p-1]);
+			printf("Give %i\n",nb[i][0] = ft_atoi(ft_strrchr(lin[p-1], '\n')));
+			in++;
+		}		
+		while (in < a)
+		{
+			printf("tab[%i][%i] = %i\n",i,in,nb[i][in] = ft_atoi(lin[p++]));
+			in++;
 		}
+		printf("a-> %i i-> %i\n",a,i);
+		i++;
 	}
-	return (nb);
+	return(nb);
 }
+
 
 int	**make_int(int **nb, char *buf, int i, int o)
 {
-	int	a = 0;
-	while (buf[o++] != '\0')
-		i = (buf[o] == '\n') ? i+1 : i;
-	printf("=========%i========\n",i);
-	nb = (int**)malloc((i+1)*sizeof(int*));
-	nb[i] = "\0";
-	o = 0;
-	while (buf[in])
-	{
-		nb[a] = line_tab(buf[in], &in, 0);
-	
-	}
-	return (nb);
+	int	**nice;
+
+	nice = cut_all(buf,0,0,0);
+	printf("nice=> %i\n", nice[36][168]);
+	return (nice);
 }
 
 int		main(int argc, char **argv)
@@ -56,7 +72,7 @@ int		main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	rd = read(fd, buf, BUFF_SIZE);
 	buf[rd] = '\0';
+
 	nb = make_int(nb, buf, 0, 0);
-	printf("%s\n", buf);
 	return(0);
 }
