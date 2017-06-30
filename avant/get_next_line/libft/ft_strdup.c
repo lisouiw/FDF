@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/06/30 17:09:29 by ltran            ###   ########.fr       */
+/*   Created: 2016/11/12 19:05:14 by ltran             #+#    #+#             */
+/*   Updated: 2017/02/15 19:38:29 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "libft.h"
 
-#define BUFF_SIZE 2000000
+void	*ft_strdup(const char *s)
+{
+	int		i;
+	char	*tab;
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include "avant/libft/libft.h"
-#include <fcntl.h>
-#include <mlx.h>
-#include <sys/stat.h>
-
-#endif
+	i = -1;
+	if (!(tab = (char *)malloc((ft_strlen(s) + 1) * sizeof(*tab))))
+		return (NULL);
+	while (s[++i])
+		tab[i] = s[i];
+	tab[i] = '\0';
+	return (tab);
+}

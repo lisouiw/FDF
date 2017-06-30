@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/06/30 17:09:29 by ltran            ###   ########.fr       */
+/*   Created: 2016/12/05 10:17:16 by ltran             #+#    #+#             */
+/*   Updated: 2016/12/05 10:17:40 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "libft.h"
 
-#define BUFF_SIZE 2000000
+char	*ft_strstr(const char *big, const char *little)
+{
+	char *a;
+	char *b;
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include "avant/libft/libft.h"
-#include <fcntl.h>
-#include <mlx.h>
-#include <sys/stat.h>
-
-#endif
+	if (*little == '\0')
+		return ((char *)big);
+	while (*big)
+	{
+		a = (char *)big;
+		b = (char *)little;
+		while (*b && *a == *b)
+		{
+			a++;
+			b++;
+		}
+		if (*b == '\0')
+			return ((char *)big);
+		big++;
+	}
+	return (NULL);
+}

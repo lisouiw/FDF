@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/06/30 17:09:29 by ltran            ###   ########.fr       */
+/*   Created: 2016/11/20 11:26:08 by ltran             #+#    #+#             */
+/*   Updated: 2016/12/05 10:05:08 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "libft.h"
 
-#define BUFF_SIZE 2000000
+void	*ft_memccpy(void *restrict dst, const void *restrict src,
+		int c, size_t n)
+{
+	size_t	i;
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include "avant/libft/libft.h"
-#include <fcntl.h>
-#include <mlx.h>
-#include <sys/stat.h>
-
-#endif
+	i = 0;
+	while (i < n)
+	{
+		((unsigned char*)dst)[i] = ((unsigned char*)src)[i];
+		if (((unsigned char*)src)[i] == (unsigned char)c)
+			return (dst + i + 1);
+		i++;
+	}
+	return (NULL);
+}

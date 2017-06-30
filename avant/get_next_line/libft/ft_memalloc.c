@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_memalloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/06/30 17:09:29 by ltran            ###   ########.fr       */
+/*   Created: 2016/11/26 15:16:36 by ltran             #+#    #+#             */
+/*   Updated: 2017/02/15 18:52:10 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "libft.h"
 
-#define BUFF_SIZE 2000000
+void	*ft_memalloc(size_t size)
+{
+	char	*mo;
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include "avant/libft/libft.h"
-#include <fcntl.h>
-#include <mlx.h>
-#include <sys/stat.h>
-
-#endif
+	if (!(mo = (char *)malloc(size * sizeof(mo))))
+		return (NULL);
+	ft_bzero(mo, size);
+	return (mo);
+}

@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_striter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/06/30 17:09:29 by ltran            ###   ########.fr       */
+/*   Created: 2016/11/26 16:03:49 by ltran             #+#    #+#             */
+/*   Updated: 2016/12/05 09:04:54 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "libft.h"
 
-#define BUFF_SIZE 2000000
+void	ft_striter(char *s, void (*f)(char *))
+{
+	int		i;
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include "avant/libft/libft.h"
-#include <fcntl.h>
-#include <mlx.h>
-#include <sys/stat.h>
-
-#endif
+	i = 0;
+	if (!s || !f)
+		return ;
+	while (s[i] != '\0')
+	{
+		f(s + i);
+		i++;
+	}
+	i--;
+}

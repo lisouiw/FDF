@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/06/30 17:09:29 by ltran            ###   ########.fr       */
+/*   Created: 2016/11/26 17:29:10 by ltran             #+#    #+#             */
+/*   Updated: 2017/02/15 19:38:56 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "libft.h"
 
-#define BUFF_SIZE 2000000
+char	*ft_strsub(char const *s, unsigned int start, size_t len)
+{
+	unsigned int	i;
+	char			*troncon;
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include "avant/libft/libft.h"
-#include <fcntl.h>
-#include <mlx.h>
-#include <sys/stat.h>
-
-#endif
+	i = -1;
+	if (!s || !(troncon = (char *)malloc((sizeof(char) * (len + 1)))))
+		return (NULL);
+	while (++i < len)
+	{
+		troncon[i] = s[start];
+		start++;
+	}
+	troncon[i] = '\0';
+	return (troncon);
+}

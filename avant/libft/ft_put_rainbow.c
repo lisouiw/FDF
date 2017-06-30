@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_put_rainbow.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/06/30 17:09:29 by ltran            ###   ########.fr       */
+/*   Created: 2016/12/02 14:38:28 by ltran             #+#    #+#             */
+/*   Updated: 2016/12/02 14:54:01 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "libft.h"
 
-#define BUFF_SIZE 2000000
-
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include "avant/libft/libft.h"
-#include <fcntl.h>
-#include <mlx.h>
-#include <sys/stat.h>
-
-#endif
+void	ft_put_rainbow(void)
+{
+	ft_putstr("\033[31mr\033[0m");
+	ft_putstr("\033[33ma\033[0m");
+	ft_putstr("\033[32mi\033[0m");
+	ft_putstr("\033[36mn\033[0m");
+	ft_putstr("\033[34mb\033[0m");
+	ft_putstr("\033[35mo\033[0m");
+	ft_putstr("\033[37mw\033[0m");
+}

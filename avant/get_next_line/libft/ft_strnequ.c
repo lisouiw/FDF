@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_strnequ.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/06/30 17:09:29 by ltran            ###   ########.fr       */
+/*   Created: 2016/11/28 20:40:52 by ltran             #+#    #+#             */
+/*   Updated: 2016/11/30 06:29:30 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "libft.h"
 
-#define BUFF_SIZE 2000000
+int		ft_strnequ(char const *s1, char const *s2, size_t n)
+{
+	unsigned int	i;
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include "avant/libft/libft.h"
-#include <fcntl.h>
-#include <mlx.h>
-#include <sys/stat.h>
-
-#endif
+	i = 0;
+	if (s1 == NULL || s2 == NULL)
+		return (0);
+	while (i < n && s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	if ((s1[i] == '\0' && s2[i] == '\0') || i == n)
+		return (1);
+	return (0);
+}
