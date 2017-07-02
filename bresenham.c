@@ -25,6 +25,39 @@ void	trace(int x1, int y1, int x2, int y2)
 	cx = x1 > x2 ? -1 : 1;
 	cy = y1 > y2 ? -1 : 1;
 
-	if(ax > ay)
-	{}
+
+	if(ax < ay)
+	{
+		l = ay;
+		p = y1;
+		ip = cy;
+		d = x1;
+		dp = cx;
+		xp = ex;
+		dx = ay;
+		dy = ax;
+	}
+	else
+	{
+		l = ax;
+		p = x1;
+		ip = cx;
+		d = y1;
+		dp = cy;
+		xp = ex;
+		dx = ay;
+		dy = ax;
+	}
+	while (i <= l)
+	{
+		pixel();
+		++i;
+		p += ip;
+		xp -= dy;
+		if (xp < 0)
+		{
+			d += dp;
+			xp += dx;
+		}
+	}
 }

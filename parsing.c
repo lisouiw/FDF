@@ -23,7 +23,7 @@ void	pixel_put(char *adr, int x, int y, int color, int line)
 {
 	int		i;
 
-	i = line * y + x *4;
+	i = line * y + x * 4;
 	adr[i] = color & 0XFF;
 	adr[++i] = color >> 8 & 0XFF;
 	adr[++i] = color >> 16;
@@ -63,19 +63,6 @@ int		get_info_map(int i, char *buf)
 	start_window(map);
 	return (0);
 }
-
-int		count_line(char *buf, int rd, int i, int a)
-{
-	while (buf[++a])
-	{
-		if (buf[a] == '\n')
-			++i;
-	}
-	if (buf[rd-1] != '\n')
-		++i;
-	return (i);
-}
-
 int		main(int ac, char **av)
 {
 	int		op;
