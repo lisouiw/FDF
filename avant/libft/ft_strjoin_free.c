@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/06/30 17:09:29 by ltran            ###   ########.fr       */
+/*   Created: 2016/11/26 17:43:13 by ltran             #+#    #+#             */
+/*   Updated: 2016/12/02 12:37:56 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "libft.h"
 
-#define BUFF_SIZE 2000000
+char	*ft_strjoin_free(char *s1, char *s2, int i)
+{
+	char	*join;
 
-<<<<<<< HEAD
-//#include "mlx.h"
-#include "./libft/libft.h"
-#include <sys/uio.h>
-=======
->>>>>>> cdec8745044bc07b906699f74cfccfe3fe0987ee
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include "avant/libft/libft.h"
-#include <fcntl.h>
-#include <mlx.h>
-#include <sys/stat.h>
-
-#endif
+	join = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!(join))
+		return (NULL);
+	join = ft_strcpy(join, s1);
+	join = ft_strcat(join, s2);
+	if (i == 1)
+		free(s1);
+	if (i == 2)
+		free(s2);
+	return (join);
+}

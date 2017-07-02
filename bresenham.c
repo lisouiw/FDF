@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   bresenham.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/06/30 17:09:29 by ltran            ###   ########.fr       */
+/*   Created: 2017/06/30 18:47:54 by ltran             #+#    #+#             */
+/*   Updated: 2017/06/30 19:06:04 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "fdf.h"
 
-#define BUFF_SIZE 2000000
+void	trace(int x1, int y1, int x2, int y2)
+{
+	int		ax = abs(x2 - x1);
+	int		ay = abs(y2 - y1);
+	int		x = 2 * ax;
+	int		y = 2 * ay;
+	int		i = 0;
+	int		cx;
+	int		cy;
+	
+	cx = x1 > x2 ? -1 : 1;
+	cy = y1 > y2 ? -1 : 1;
 
-<<<<<<< HEAD
-//#include "mlx.h"
-#include "./libft/libft.h"
-#include <sys/uio.h>
-=======
->>>>>>> cdec8745044bc07b906699f74cfccfe3fe0987ee
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include "avant/libft/libft.h"
-#include <fcntl.h>
-#include <mlx.h>
-#include <sys/stat.h>
-
-#endif
+	if(ax > ay)
+	{}
+}

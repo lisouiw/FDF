@@ -1,33 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/06/30 17:09:29 by ltran            ###   ########.fr       */
+/*   Created: 2016/11/20 12:18:12 by ltran             #+#    #+#             */
+/*   Updated: 2016/12/05 08:49:21 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "libft.h"
 
-#define BUFF_SIZE 2000000
+size_t		ft_strlcat(char *dst, const char *src, size_t n)
+{
+	unsigned int	p;
+	unsigned int	g;
+	unsigned int	i;
+	unsigned int	d;
 
-<<<<<<< HEAD
-//#include "mlx.h"
-#include "./libft/libft.h"
-#include <sys/uio.h>
-=======
->>>>>>> cdec8745044bc07b906699f74cfccfe3fe0987ee
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include "avant/libft/libft.h"
-#include <fcntl.h>
-#include <mlx.h>
-#include <sys/stat.h>
-
-#endif
+	p = ft_strlen(dst) + ft_strlen(src);
+	g = n + ft_strlen(src);
+	i = ft_strlen(dst);
+	d = 0;
+	if (i < n)
+	{
+		while (src[d] != '\0' && i < (n - 1))
+		{
+			dst[i] = src[d];
+			d++;
+			i++;
+		}
+		dst[i] = '\0';
+		return (p);
+	}
+	return (g);
+}
