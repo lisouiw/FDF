@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/06/30 18:43:08 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/04 20:21:40 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,12 @@ void	start_window(char **map)
 	win = mlx_new_window(mlx, 2560, 1400, "Coffee");
 	img = mlx_new_image(mlx, 2560, 1400);
 	adr = mlx_get_data_addr(img, &bit, &line, &endian);
-	while (++x < 1)
-		pixel_put(adr, x, y, 0X002F4F4F, line);
+	while (map[x][y])
+	{
+		++x;
+		trace(x, y, x+1, y, adr, line);
+	}
+	pixel_put(adr, x, y, 0X002F4F4F, line);
 	mlx_put_image_to_window(mlx, win, img, 50, 50);
 	mlx_key_hook(win, ft_key, 0);
 	mlx_loop(mlx);

@@ -6,13 +6,13 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 18:47:54 by ltran             #+#    #+#             */
-/*   Updated: 2017/06/30 19:06:04 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/04 20:27:03 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	trace(int x1, int y1, int x2, int y2)
+void	trace(int x1, int y1, int x2, int y2, char *adr, int line)
 {
 	int		ax = abs(x2 - x1);
 	int		ay = abs(y2 - y1);
@@ -21,7 +21,17 @@ void	trace(int x1, int y1, int x2, int y2)
 	int		i = 0;
 	int		cx;
 	int		cy;
-	
+
+	int		l;
+	int		p;
+	int		xp;
+	int		ip;
+	int		dp;
+	int		ex;
+	int		dx;
+	int		dy;
+	int		d;
+
 	cx = x1 > x2 ? -1 : 1;
 	cy = y1 > y2 ? -1 : 1;
 
@@ -50,7 +60,7 @@ void	trace(int x1, int y1, int x2, int y2)
 	}
 	while (i <= l)
 	{
-		pixel();
+		pixel_put(adr, p, d, 0X002F4F4F, line);
 		++i;
 		p += ip;
 		xp -= dy;

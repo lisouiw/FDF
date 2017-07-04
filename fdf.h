@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/06/30 17:09:29 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/04 20:31:58 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,20 @@
 
 #define BUFF_SIZE 2000000
 
-<<<<<<< HEAD
-//#include "mlx.h"
-#include "./libft/libft.h"
+#include "mlx.h"
 #include <sys/uio.h>
-=======
->>>>>>> cdec8745044bc07b906699f74cfccfe3fe0987ee
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
-#include "avant/libft/libft.h"
+#include "libft/libft.h"
 #include <fcntl.h>
-#include <mlx.h>
 #include <sys/stat.h>
+
+void	trace(int x1, int y1, int x2, int y2, char *adr, int line);
+int		get_info_map(int i, char *buf);
+void	start_window(char **map);
+void	pixel_put(char *adr, int x, int y, int color, int line);
+int		ft_key(int keycode, void *param);
 
 #endif
