@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/05 17:01:10 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/05 17:08:24 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	start_window(char **map)
 	int		endian;
 	int		bit;
 	int		line;
-	int		x = -1;
+	int		x = 0;
 	int		y;
-	int		z = -1;
+	int		z = 0;
 	char	*adr;
 
 
@@ -47,20 +47,21 @@ void	start_window(char **map)
 	win = mlx_new_window(mlx, 2560, 1400, "Coffee");
 	img = mlx_new_image(mlx, 2560, 1400);
 	adr = mlx_get_data_addr(img, &bit, &line, &endian);
-	while (++z < 11)
+	while (++z < 12)
 	{
 		y = z*30;
 		while (++x < 19)
 			trace(x*30, y, (x+1)*30, y ,adr, line);
-		x = -1;
+		x = 0;
 	}
-	z = -1;
-	while (++z < 19)
+	z = 0;
+	y = 0;
+	while (++z < 20)
 	{
 		x = z*30;
 		while (++y < 11)
 			trace(x, y*30, x, (y+1)*30 ,adr, line);
-		y = -1;
+		y = 0;
 	}
 /*	while (++x < 19)
 	{
