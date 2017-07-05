@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 18:47:54 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/04 20:27:03 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/05 16:34:07 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,60 +14,44 @@
 
 void	trace(int x1, int y1, int x2, int y2, char *adr, int line)
 {
-	int		ax = abs(x2 - x1);
-	int		ay = abs(y2 - y1);
-	int		x = 2 * ax;
-	int		y = 2 * ay;
+	int		ex = abs(x2 - x1);
+	int		ey = abs(y2 - y1);
+	int		dx = 2 * ex;
+	int		dy = 2 * ey;
+	int		Dx = ex;
+	int		Dy = ey;
 	int		i = 0;
-	int		cx;
-	int		cy;
+	int		xinc = x1 > x2 ? -1 : 1;
+	int		yinc = y1 > y2 ? -1 : 1;
 
-	int		l;
-	int		p;
-	int		xp;
-	int		ip;
-	int		dp;
-	int		ex;
-	int		dx;
-	int		dy;
-	int		d;
-
-	cx = x1 > x2 ? -1 : 1;
-	cy = y1 > y2 ? -1 : 1;
-
-
-	if(ax < ay)
+	if (Dx > Dy)
 	{
-		l = ay;
-		p = y1;
-		ip = cy;
-		d = x1;
-		dp = cx;
-		xp = ex;
-		dx = ay;
-		dy = ax;
-	}
-	else
-	{
-		l = ax;
-		p = x1;
-		ip = cx;
-		d = y1;
-		dp = cy;
-		xp = ex;
-		dx = ay;
-		dy = ax;
-	}
-	while (i <= l)
-	{
-		pixel_put(adr, p, d, 0X002F4F4F, line);
-		++i;
-		p += ip;
-		xp -= dy;
-		if (xp < 0)
+		while (i <= Dx)
 		{
-			d += dp;
-			xp += dx;
+			pixel_put(adr, x1, y1, 0X00e9f24f, line);
+			++i;
+			x1 += xinc;
+			ex -= dy;
+			if (ex < 0)
+			{
+				y1 = yinc;
+				ex += dx;
+			}
+		}
+	}
+	else if (Dx <= Dy)
+	{
+		while (i <= Dy)
+		{
+			pixel_put(adr, x1, y1, 0X00e9f24f, line);
+			++i;
+			y1 += yinc;
+			ey -= dx;
+			if (ey < 0)
+			{
+				x1 = xinc;
+				ey += dy;
+			}
 		}
 	}
 }

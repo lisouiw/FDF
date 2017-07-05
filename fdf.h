@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/04 20:31:58 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/05 10:31:24 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #define BUFF_SIZE 2000000
 
-#include "mlx.h"
+#include "minilibx_macos/mlx.h"
 #include <sys/uio.h>
 #include <unistd.h>
 #include <stdio.h>
