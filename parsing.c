@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/05 17:08:24 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/05 18:00:20 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	pixel_put(char *adr, int x, int y, int color, int line)
 	adr[++i] = color >> 16 & 0XFF;
 }
 
-void	start_window(char **map)
+void	start_window(char **map, t_coord *pt)
 {
 	void	*mlx;
 	void	*win;
@@ -41,26 +41,27 @@ void	start_window(char **map)
 	int		y;
 	int		z = 0;
 	char	*adr;
+	int		zm = 20;
 
 
 	mlx = mlx_init ();
 	win = mlx_new_window(mlx, 2560, 1400, "Coffee");
 	img = mlx_new_image(mlx, 2560, 1400);
 	adr = mlx_get_data_addr(img, &bit, &line, &endian);
-	while (++z < 12)
+	while (++z < pt->x+1)
 	{
-		y = z*30;
-		while (++x < 19)
-			trace(x*30, y, (x+1)*30, y ,adr, line);
+		y = z*zm;
+		while (++x < pt->y)
+			trace(x*zm, y, (x+1)*zm, y ,adr, line);
 		x = 0;
 	}
 	z = 0;
 	y = 0;
-	while (++z < 20)
+	while (++z < pt->y+1)
 	{
-		x = z*30;
-		while (++y < 11)
-			trace(x, y*30, x, (y+1)*30 ,adr, line);
+		x = z*zm;
+		while (++y < pt->x)
+			trace(x, y*zm, x, (y+1)*zm ,adr, line);
 		y = 0;
 	}
 /*	while (++x < 19)
@@ -74,7 +75,7 @@ void	start_window(char **map)
 	mlx_loop(mlx);
 }
 
-int		verif_map(char **map)
+t_coord		*verif_map(char **map, t_coord *pt)
 {
 	char	**nbr;
 	int		i = 0;
@@ -83,6 +84,7 @@ int		verif_map(char **map)
 
 	while (map[i] != NULL)
 		++i;
+	pt->x = i;
 	printf("i = %i\n",i);
 	i = -1;
 	while (map[++i])
@@ -95,20 +97,29 @@ int		verif_map(char **map)
 		if (tmp != o)
 		{
 			printf("map invalide\n");
-			return (-1);
+			pt->x = -1;
+			return (pt);
 		}
 	}
+	pt->y = o;
 	printf("o = %i\n",o);
-	return (0);
+	return (pt);
 }
 
 int		get_info_map(int i, char *buf)
 {
-	char	**map;
+	char		**map;
+	t_coord		*pt;
 
+	pt = NULL;
+	pt = (t_coord*)malloc(sizeof(t_coord));
 	map = ft_strsplit(buf, '\n');
-	verif_map(map);
-	start_window(map);
+	pt = verif_map(map, pt);
+	printf("x-> %i || y-> %i\n", pt->x, pt->y);
+	if (pt->x == -1)
+		return (0);
+	else
+		start_window(map, pt);
 	return (0);
 }
 int		main(int ac, char **av)

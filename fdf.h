@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/05 10:31:24 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/05 17:45:44 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,15 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 
+typedef struct		s_coord
+{
+	int				x;
+	int				y;
+}					t_coord;
+
 void	trace(int x1, int y1, int x2, int y2, char *adr, int line);
 int		get_info_map(int i, char *buf);
-void	start_window(char **map);
+void	start_window(char **map, t_coord *pt);
 void	pixel_put(char *adr, int x, int y, int color, int line);
 int		ft_key(int keycode, void *param);
 
