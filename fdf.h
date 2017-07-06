@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/05 17:45:44 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/06 05:36:18 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@ typedef struct		s_coord
 	int				x;
 	int				y;
 }					t_coord;
+
+typedef struct		s_tool
+{
+	void			*mlx;
+	void			*win;
+	void			*img;
+	int				endian;
+	int				bit;
+	int				line;
+}					t_tool;
 
 void	trace(int x1, int y1, int x2, int y2, char *adr, int line);
 int		get_info_map(int i, char *buf);

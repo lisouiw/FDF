@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/06 03:53:28 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/06 05:52:57 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,24 @@ void	pixel_put(char *adr, int x, int y, int color, int line)
 
 void	start_window(char **map, t_coord *pt)
 {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	int		endian;
-	int		bit;
-	int		line;
+	t_tool	*t;
 	int		x = -1;
 	int		y = 0;
 	int		z = -1;
 	char	*adr;
-	int		zm = 60;
-	int		dec = 400;
+	int		zm = 80;
+	int		dec = 690;
 
-
-	mlx = mlx_init ();
-	win = mlx_new_window(mlx, 2560, 1400, "Coffee");
-	img = mlx_new_image(mlx, 2560, 1400);
-	adr = mlx_get_data_addr(img, &bit, &line, &endian);
+	t = (t_tool*)malloc(sizeof(t_tool));
+	t->mlx = mlx_init ();
+	t->win = mlx_new_window(t->mlx, 2560, 1400, "Coffee");
+	t->img = mlx_new_image(t->mlx, 2560, 1400);
+	adr = mlx_get_data_addr(t->img, &(t->bit), &(t->line), &(t->endian));
 	while (++z < pt->x+1 && (x+1)*zm <= 2560 && y < 1400)
 	{
 		y = z*zm;
 		while (++x < pt->y && (x+1)*zm <= 2560 && y < 1400)
-			trace(x*zm, y, (x+1)*zm, y ,adr, line);
+			trace(x*zm, y, (x+1)*zm, y ,adr, t->line);
 		x = -1;
 	}
 	z = -1;
@@ -62,12 +57,12 @@ void	start_window(char **map, t_coord *pt)
 	{
 		x = z*zm;
 		while (++y < pt->x && (y+1)*zm <= 1400 && x < 2560)
-			trace(x, y*zm, x, (y+1)*zm ,adr, line);
+			trace(x, y*zm, x, (y+1)*zm ,adr, t->line);
 		y = -1;
 	}
-	mlx_put_image_to_window(mlx, win, img, 0, 0);
-	mlx_key_hook(win, ft_key, 0);
-	mlx_loop(mlx);
+	mlx_put_image_to_window(t->mlx, t->win, t->img, 0, 0);
+	mlx_key_hook(t->win, ft_key, 0);
+	mlx_loop(t->mlx);
 }
 
 t_coord		*verif_map(char **map, t_coord *pt)
