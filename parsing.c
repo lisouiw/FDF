@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/06 05:52:57 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/06 06:23:24 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	start_window(char **map, t_coord *pt)
 	int		z = -1;
 	char	*adr;
 	int		zm = 80;
-	int		dec = 690;
 
 	t = (t_tool*)malloc(sizeof(t_tool));
 	t->mlx = mlx_init ();
@@ -104,7 +103,8 @@ int		get_info_map(int i, char *buf)
 	pt = NULL;
 	pt = (t_coord*)malloc(sizeof(t_coord));
 	map = ft_strsplit(buf, '\n');
-	pt = verif_map(map, pt);
+	pt->ln = map;
+	pt = verif_map(pt->ln, pt);
 	printf("x-> %i || y-> %i\n", pt->x, pt->y);
 	if (pt->x == -1)
 		return (0);

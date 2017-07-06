@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/06 05:36:18 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/06 06:22:05 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct		s_coord
 {
 	int				x;
 	int				y;
+	char			**ln;
 }					t_coord;
 
 typedef struct		s_tool
