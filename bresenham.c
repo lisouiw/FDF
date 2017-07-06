@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 18:47:54 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/05 16:34:07 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/06 02:26:34 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,32 @@ void	trace(int x1, int y1, int x2, int y2, char *adr, int line)
 
 	if (Dx > Dy)
 	{
-		while (i <= Dx)
+		while (i <= Dx && x1 != 2560)
 		{
 			pixel_put(adr, x1, y1, 0X00e9f24f, line);
 			++i;
 			x1 += xinc;
 			ex -= dy;
+	//		printf("X1 = %i && ex = %i\n",x1, ex);
 			if (ex < 0)
 			{
-				y1 = yinc;
+				y1 += yinc;
 				ex += dx;
 			}
 		}
 	}
-	else if (Dx <= Dy)
+	if (Dx < Dy)
 	{
-		while (i <= Dy)
+		while (i <= Dy && y1 != 1400)
 		{
 			pixel_put(adr, x1, y1, 0X00e9f24f, line);
 			++i;
 			y1 += yinc;
 			ey -= dx;
+	//		printf("Y1 = %i && ey = %i\n",y1, ey);
 			if (ey < 0)
 			{
-				x1 = xinc;
+				x1 += xinc;
 				ey += dy;
 			}
 		}

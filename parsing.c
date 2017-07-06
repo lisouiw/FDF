@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/05 18:00:20 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/06 02:37:18 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	start_window(char **map, t_coord *pt)
 	int		endian;
 	int		bit;
 	int		line;
-	int		x = 0;
-	int		y;
-	int		z = 0;
+	int		x = -1;
+	int		y = 0;
+	int		z = -1;
 	char	*adr;
 	int		zm = 20;
 
@@ -48,21 +48,25 @@ void	start_window(char **map, t_coord *pt)
 	win = mlx_new_window(mlx, 2560, 1400, "Coffee");
 	img = mlx_new_image(mlx, 2560, 1400);
 	adr = mlx_get_data_addr(img, &bit, &line, &endian);
-	while (++z < pt->x+1)
+	printf("%i\n", line);
+	while (++z < pt->x+1 && (x+1)*zm <= 2560 && y < 1400)
 	{
 		y = z*zm;
-		while (++x < pt->y)
+		while (++x < pt->y && (x+1)*zm <= 2560 && y < 1400)
 			trace(x*zm, y, (x+1)*zm, y ,adr, line);
-		x = 0;
+		x = -1;
 	}
-	z = 0;
-	y = 0;
-	while (++z < pt->y+1)
+	z = -1;
+	y = -1;
+	while (++z < pt->y+1 && (y+1)*zm <= 1400 && x < 2560)
 	{
 		x = z*zm;
-		while (++y < pt->x)
+		while (++y < pt->x && (y+1)*zm <= 1400 && x < 2560)
+		{
+			printf("->%i x %i y %i\n",x,(y+1)*zm, x);
 			trace(x, y*zm, x, (y+1)*zm ,adr, line);
-		y = 0;
+		}
+		y = -1;
 	}
 /*	while (++x < 19)
 	{
