@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 18:47:54 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/06 02:26:34 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/06 03:43:48 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 
 void	trace(int x1, int y1, int x2, int y2, char *adr, int line)
 {
+	int		dec = 420;
+	x1 = dec + (x1 - y1) /2;
+	x2 = dec +(x2 - y2) /2;
+	y1 = dec +(x1 + y1) /2;
+	y2 = dec +(x2 + y2) /2;
+	
+//	printf("x1 = %i y1 = %i x2 = %i y2 = %i\n", x1, y1, x2, y2);
 	int		ex = abs(x2 - x1);
 	int		ey = abs(y2 - y1);
 	int		dx = 2 * ex;

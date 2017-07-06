@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/06 02:37:18 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/06 03:53:28 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ void	start_window(char **map, t_coord *pt)
 	int		y = 0;
 	int		z = -1;
 	char	*adr;
-	int		zm = 20;
+	int		zm = 60;
+	int		dec = 400;
 
 
 	mlx = mlx_init ();
 	win = mlx_new_window(mlx, 2560, 1400, "Coffee");
 	img = mlx_new_image(mlx, 2560, 1400);
 	adr = mlx_get_data_addr(img, &bit, &line, &endian);
-	printf("%i\n", line);
 	while (++z < pt->x+1 && (x+1)*zm <= 2560 && y < 1400)
 	{
 		y = z*zm;
@@ -62,18 +62,9 @@ void	start_window(char **map, t_coord *pt)
 	{
 		x = z*zm;
 		while (++y < pt->x && (y+1)*zm <= 1400 && x < 2560)
-		{
-			printf("->%i x %i y %i\n",x,(y+1)*zm, x);
 			trace(x, y*zm, x, (y+1)*zm ,adr, line);
-		}
 		y = -1;
 	}
-/*	while (++x < 19)
-	{
-		while (++y < 12)
-			mlx_pixel_put(mlx, win, x *50, y*50, 0X002ff24f);
-		y = -1;
-	}*/
 	mlx_put_image_to_window(mlx, win, img, 0, 0);
 	mlx_key_hook(win, ft_key, 0);
 	mlx_loop(mlx);
