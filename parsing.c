@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/06 06:23:24 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/10 13:50:13 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,33 +29,31 @@ void	pixel_put(char *adr, int x, int y, int color, int line)
 	adr[++i] = color >> 16 & 0XFF;
 }
 
-void	start_window(char **map, t_coord *pt)
+void	start_window(char **map, t_coord *pt, t_tool *t)
 {
-	t_tool	*t;
 	int		x = -1;
 	int		y = 0;
 	int		z = -1;
 	char	*adr;
 	int		zm = 80;
 
-	t = (t_tool*)malloc(sizeof(t_tool));
 	t->mlx = mlx_init ();
 	t->win = mlx_new_window(t->mlx, 2560, 1400, "Coffee");
 	t->img = mlx_new_image(t->mlx, 2560, 1400);
 	adr = mlx_get_data_addr(t->img, &(t->bit), &(t->line), &(t->endian));
-	while (++z < pt->x+1 && (x+1)*zm <= 2560 && y < 1400)
+	while (++z < pt->x+1 && (x+1)*zm <= 2560 && y <= 1400)
 	{
 		y = z*zm;
-		while (++x < pt->y && (x+1)*zm <= 2560 && y < 1400)
+		while (++x < pt->y && (x+1)*zm <= 2560 && y <= 1400)
 			trace(x*zm, y, (x+1)*zm, y ,adr, t->line);
 		x = -1;
 	}
 	z = -1;
 	y = -1;
-	while (++z < pt->y+1 && (y+1)*zm <= 1400 && x < 2560)
+	while (++z < pt->y+1 && (y+1)*zm <= 1400 && x <= 2560)
 	{
 		x = z*zm;
-		while (++y < pt->x && (y+1)*zm <= 1400 && x < 2560)
+		while (++y < pt->x && (y+1)*zm <= 1400 && x <= 2560)
 			trace(x, y*zm, x, (y+1)*zm ,adr, t->line);
 		y = -1;
 	}
@@ -64,13 +62,12 @@ void	start_window(char **map, t_coord *pt)
 	mlx_loop(t->mlx);
 }
 
-t_coord		*verif_map(char **map, t_coord *pt)
+t_coord		*verif_map(char **map, t_coord *pt, int i, int o)
 {
 	char	**nbr;
-	int		i = 0;
-	int		o = 0;
-	int		tmp = 0;
+	int		tmp;
 
+	tmp = 0;
 	while (map[i] != NULL)
 		++i;
 	pt->x = i;
@@ -99,17 +96,18 @@ int		get_info_map(int i, char *buf)
 {
 	char		**map;
 	t_coord		*pt;
+	t_tool	*t;
 
 	pt = NULL;
 	pt = (t_coord*)malloc(sizeof(t_coord));
 	map = ft_strsplit(buf, '\n');
 	pt->ln = map;
-	pt = verif_map(pt->ln, pt);
+	pt = verif_map(pt->ln, pt, 0, 0);
 	printf("x-> %i || y-> %i\n", pt->x, pt->y);
 	if (pt->x == -1)
 		return (0);
-	else
-		start_window(map, pt);
+	t = (t_tool*)malloc(sizeof(t_tool));
+	start_window(map, pt, t);
 	return (0);
 }
 int		main(int ac, char **av)
