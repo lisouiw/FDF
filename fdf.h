@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/10 11:20:24 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/10 18:54:04 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct		s_tool
 //void	trace_yx(int x1, int y1, int x2, int y2, char *adr, int line);
 void	trace(int x1, int y1, int x2, int y2, char *adr, int line);
 int		get_info_map(int i, char *buf);
-void	start_window(char **map, t_coord *pt, t_tool *t);
+void	start_window(char **map, t_coord *pt, t_tool *t, char **buf);
 void	pixel_put(char *adr, int x, int y, int color, int line);
 int		ft_key(int keycode, void *param);
 

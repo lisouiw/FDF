@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/10 13:50:13 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/10 16:31:20 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,25 @@ void	pixel_put(char *adr, int x, int y, int color, int line)
 	adr[++i] = color >> 16 & 0XFF;
 }
 
-void	start_window(char **map, t_coord *pt, t_tool *t)
+void	trace_gril(t_coord *pt, t_tool *t, int zm, char *adr, char **buf)
 {
-	int		x = -1;
-	int		y = 0;
-	int		z = -1;
-	char	*adr;
-	int		zm = 80;
+	int		y;
+	int		z;
+	int		x;
+	char	**nbr;
 
-	t->mlx = mlx_init ();
-	t->win = mlx_new_window(t->mlx, 2560, 1400, "Coffee");
-	t->img = mlx_new_image(t->mlx, 2560, 1400);
-	adr = mlx_get_data_addr(t->img, &(t->bit), &(t->line), &(t->endian));
+	y = 0;
+	z = -1;
+	x = -1;
 	while (++z < pt->x+1 && (x+1)*zm <= 2560 && y <= 1400)
 	{
 		y = z*zm;
 		while (++x < pt->y && (x+1)*zm <= 2560 && y <= 1400)
+		{
+			printf("z %i && x %i \n", z, pt->x+1);
 			trace(x*zm, y, (x+1)*zm, y ,adr, t->line);
+		}
+		printf("\n");
 		x = -1;
 	}
 	z = -1;
@@ -57,6 +59,21 @@ void	start_window(char **map, t_coord *pt, t_tool *t)
 			trace(x, y*zm, x, (y+1)*zm ,adr, t->line);
 		y = -1;
 	}
+}
+
+void	start_window(char **map, t_coord *pt, t_tool *t, char **buf)
+{
+	int		y = 0;
+	int		z = -1;
+	int		x = -1;
+	char	*adr;
+	int		zm = 80;
+
+	t->mlx = mlx_init ();
+	t->win = mlx_new_window(t->mlx, 2560, 1400, "Coffee");
+	t->img = mlx_new_image(t->mlx, 2560, 1400);
+	adr = mlx_get_data_addr(t->img, &(t->bit), &(t->line), &(t->endian));
+	trace_gril(pt, t, zm, adr, buf);
 	mlx_put_image_to_window(t->mlx, t->win, t->img, 0, 0);
 	mlx_key_hook(t->win, ft_key, 0);
 	mlx_loop(t->mlx);
@@ -94,6 +111,8 @@ t_coord		*verif_map(char **map, t_coord *pt, int i, int o)
 
 int		get_info_map(int i, char *buf)
 {
+	int			x = 0;
+	int			y = -1;
 	char		**map;
 	t_coord		*pt;
 	t_tool	*t;
@@ -107,7 +126,8 @@ int		get_info_map(int i, char *buf)
 	if (pt->x == -1)
 		return (0);
 	t = (t_tool*)malloc(sizeof(t_tool));
-	start_window(map, pt, t);
+	printf("%i\n", map[10][0] - '0');
+	start_window(map, pt, t, ft_strsplit(buf, ' '));
 	return (0);
 }
 int		main(int ac, char **av)

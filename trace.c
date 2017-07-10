@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bresenham.c                                        :+:      :+:    :+:   */
+/*   trace.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/30 18:47:54 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/10 11:44:50 by ltran            ###   ########.fr       */
+/*   Created: 2017/07/10 14:41:22 by ltran             #+#    #+#             */
+/*   Updated: 2017/07/10 14:42:03 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-
 void	trace_yx(int x1, int y1, int ex, int ey, char *adr, int line, int xinc, int yinc, int Dy)
 {
 	int		i;
-	int		dy = 2 * ey;
-	int		dx = 2 * ex;
+	int		dy;
+	int		dx;
 
+	dy = 2 * ey;
+	dx = 2 * ex;
 	i = 0;
 	while (i <= Dy && y1 < 1400)
 	{
@@ -41,6 +42,8 @@ void	trace_xy(int x1, int y1, int ex, int ey, char *adr, int line, int xinc, int
 	int		dy = 2 * ey;
 	int		dx = 2 * ex;
 
+	dy = 2 * ey;
+	dx = 2 * ex;
 	i = 0;
 	while (i <= Dx && x1 < 2560)
 	{
@@ -61,12 +64,12 @@ void	trace(int x1, int y1, int x2, int y2, char *adr, int line)
 {
 	int		dex = 1000;
 	int		dey = -200;
-	x1 = dex + (x1 - y1) /2;
-	x2 = dex +(x2 - y2) /2;
-	y1 = dey +(x1 + y1) /2;
-	y2 = dey +(x2 + y2) /2;
-	
-	printf("x1 = %i y1 = %i x2 = %i y2 = %i\n", x1, y1, x2, y2);
+
+	x1 = dex + (x1 - y1) / 2;
+	x2 = dex + (x2 - y2) / 2;
+	y1 = dey + (x1 + y1) / 2;
+	y2 = dey + (x2 + y2) / 2;
+//	printf("x1 = %i y1 = %i x2 = %i y2 = %i\n", x1, y1, x2, y2);
 	int		ex = abs(x2 - x1);
 	int		ey = abs(y2 - y1);
 	int		Dx = ex;
