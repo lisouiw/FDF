@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/11 15:20:55 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/11 15:50:24 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	trace_gril(t_coord *pt, t_tool *t, int zm, char *adr, int *buf)
 		while (++x < pt->y && z < pt->x && (x+1)*zm <= 2560 && y <= 1400)
 		{
 		//	printf("z/(y/zm) %i && pt_x %i pt->y %i  x %i buf|%s|\n", z, pt->x, pt->y, x, buf[x + z*pt->y]);
-			trace(x*zm, y+ buf[(z*pt->y)+x]*zm , (x+1)*zm, (y + buf[(z*pt->y)+x]) *zm ,adr, t->line);
+			trace(x*zm, y+buf[(z*pt->y)+x] , (x+1)*zm, (y + buf[(z*pt->y)+x+1]) ,adr, t->line);
 		}
 		printf("\n");
 		x = -1;
@@ -57,7 +57,7 @@ void	trace_gril(t_coord *pt, t_tool *t, int zm, char *adr, int *buf)
 	{
 		x = z*zm;
 		while (++y < pt->x && z < pt->y && (y+1)*zm <= 1400 && x <= 2560)
-			trace(x, (y+buf[(z*pt->y)+x])*zm, x, (buf[(z*pt->y)+x]+ y+1)*zm ,adr, t->line);
+			trace(x, (y)*zm, x,( y+1)*zm ,adr, t->line);
 		y = -1;
 	}
 }
@@ -68,7 +68,7 @@ void	start_window(char **map, t_coord *pt, t_tool *t, int *buf)
 	int		z = -1;
 	int		x = -1;
 	char	*adr;
-	int		zm = 12;
+	int		zm = 25;
 	int i = -1;
 
 	t->mlx = mlx_init ();
