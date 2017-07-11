@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/10 14:41:22 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/11 14:33:28 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/11 16:55:44 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	trace_xy(int x1, int y1, int ex, int ey, char *adr, int line, int xinc, int
 void	trace(int x1, int y1, int x2, int y2, char *adr, int line)
 {
 	int		dex = 1000;
-	int		dey = 200;
+	int		dey = -200;
 
 	x1 = dex + (x1 - y1) / 2;
 	x2 = dex + (x2 - y2) / 2;
