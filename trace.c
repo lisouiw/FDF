@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/10 14:41:22 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/11 17:56:24 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/13 16:39:39 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	trace_yx(int x1, int y1, int ex, int ey, char *adr, int line, int xinc, int
 	i = 0;
 	while (i <= Dy && y1 < 1400)
 	{
-		pixel_put(adr, x1, y1, 0X00e9f24f, line);
+//		printf("X1 = %i && Y1 = %i\n",x1, y1);
+		pixel_put(adr, x1, y1, 0X00F46269 ,line);
 		++i;
 		y1 += yinc;
 		ey -= dx;
-		//		printf("Y1 = %i && ey = %i\n",y1, ey);
 		if (ey < 0)
 		{
 			x1 += xinc;
@@ -47,11 +47,11 @@ void	trace_xy(int x1, int y1, int ex, int ey, char *adr, int line, int xinc, int
 	i = 0;
 	while (i <= Dx && x1 < 2560)
 	{
-		pixel_put(adr, x1, y1, 0X00e9f24f, line);
+		pixel_put(adr, x1, y1, 0X00F46269, line);
 		++i;
 		x1 += xinc;
 		ex -= dy;
-		//		printf("X1 = %i && ex = %i\n",x1, ex);
+//		printf("X1 = %i && ex = %i\n",x1, ex);
 		if (ex < 0)
 		{
 			y1 += yinc;
@@ -60,16 +60,17 @@ void	trace_xy(int x1, int y1, int ex, int ey, char *adr, int line, int xinc, int
 	}
 }
 
-void	trace(int x1, int y1, int x2, int y2, char *adr, int line)
+void	trace(int x1, int y1, int x2, int y2, char *adr, int line, int zm)
 {
-	int		dex = 1000;
-	int		dey = 200;
+	int		dex = 100;
+	int		dey = 0;
 
-	x1 = dex + (x1 - y1) / 3;
-	x2 = dex + (x2 - y2) / 3;
-	y1 = dey + (x1 + y1) / 3;
-	y2 = dey + (x2 + y2) / 3;
-//	printf("x1 = %i y1 = %i x2 = %i y2 = %i\n", x1, y1, x2, y2);
+//	printf("->x1 = %i y1 = %i x2 = %i y2 = %i\n", x1, y1, x2, y2);
+	x1 = dex + ((x1 - y1)*zm);
+	x2 = dex + ((x2 - y2)*zm);
+	y1 = dey + (((x1 + y1)/2)*zm);
+	y2 = dey + (((x2 + y2)/2)*zm);
+	printf("x1 = %i y1 = %i x2 = %i y2 = %i\n", x1, y1, x2, y2);
 	int		ex = abs(x2 - x1);
 	int		ey = abs(y2 - y1);
 	int		Dx = ex;

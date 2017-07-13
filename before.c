@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   before.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/13 16:35:27 by ltran            ###   ########.fr       */
+/*   Created: 2017/07/13 14:28:39 by ltran             #+#    #+#             */
+/*   Updated: 2017/07/13 14:28:59 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,22 @@ void	trace_gril(t_coord *pt, t_tool *t, int zm, char *adr, int *buf)
 	x = -1;
 	while (++z < pt->x+1 && (x+1)*zm <= 2560 && y <= 1400)
 	{
+		y = z*zm;
 		while (++x < pt->y && z < pt->x && (x+1)*zm <= 2560 && y <= 1400)
-			trace(x, z, (x+1), z, adr, t->line, zm);
+		{
+		//	printf("z/(y/zm) %i && pt_x %i pt->y %i  x %i buf|%s|\n", z, pt->x, pt->y, x, buf[x + z*pt->y]);
+			trace(x*zm, (y+(buf[(z*pt->y)+x]*(zm/2)))*(-1) , (x+1)*zm, (y + (buf[(z*pt->y)+x+1])*(zm/2))*(-1) ,adr, t->line);
+		}
 		printf("\n");
 		x = -1;
 	}
-	
 	z = -1;
 	y = -1;
 	while (++z < pt->y+1 && (y+1)*zm <= 1400 && x <= 2560)
 	{
+		x = z*zm;
 		while (++y < pt->x &&  z < pt->y && (y+1)*zm <= 1400 && x <= 2560)
-			trace(z, y, z, (y+1) ,adr, t->line, zm);
+			trace(x, ((y+buf[y*z+z])*((zm/2)*(-1))), x, (y+1+buf[(y+1)*z+z])*((zm/2)*(-1)) ,adr, t->line);
 		y = -1;
 	}
 }
@@ -64,7 +68,7 @@ void	start_window(char **map, t_coord *pt, t_tool *t, int *buf)
 	int		z = -1;
 	int		x = -1;
 	char	*adr;
-	int		zm = 5;
+	int		zm = 100;
 	int i = -1;
 
 	t->mlx = mlx_init ();
