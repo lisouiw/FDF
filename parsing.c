@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/13 16:35:27 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/17 14:29:05 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	start_window(char **map, t_coord *pt, t_tool *t, int *buf)
 	int		z = -1;
 	int		x = -1;
 	char	*adr;
-	int		zm = 5;
+	int		zm = 8;
 	int i = -1;
 
 	t->mlx = mlx_init ();
