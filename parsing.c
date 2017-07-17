@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/17 14:29:05 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/17 17:44:23 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,16 @@ void	trace_gril(t_coord *pt, t_tool *t, int zm, char *adr, int *buf)
 	x = -1;
 	while (++z < pt->x+1 && (x+1)*zm <= 2560 && y <= 1400)
 	{
-		while (++x < pt->y && z < pt->x && (x+1)*zm <= 2560 && y <= 1400)
-			trace(x, z, (x+1), z, adr, t->line, zm);
-		printf("\n");
+		while (++x < pt->y-1 && z < pt->x && (x+1)*zm <= 2560 && y <= 1400)
+			trace(x - buf[(z * pt->y) + x], z - buf[(z * pt->y) + x], (x+1) - buf[(z * pt->y) + x + 1], z - buf[(z * pt->y) + x + 1], adr, t->line, zm);
 		x = -1;
 	}
-	
 	z = -1;
 	y = -1;
 	while (++z < pt->y+1 && (y+1)*zm <= 1400 && x <= 2560)
 	{
-		while (++y < pt->x &&  z < pt->y && (y+1)*zm <= 1400 && x <= 2560)
-			trace(z, y, z, (y+1) ,adr, t->line, zm);
+		while (++y < pt->x-1 &&  z < pt->y && (y+1)*zm <= 1400 && x <= 2560)
+			trace(z - buf[(y * pt->y) + z], y - buf[(y * pt->y) + z], z -  buf[((y+1) * pt->y) + z], (y+1) - buf[((y+1) * pt->y) + z] ,adr, t->line, zm);
 		y = -1;
 	}
 }
@@ -64,7 +62,7 @@ void	start_window(char **map, t_coord *pt, t_tool *t, int *buf)
 	int		z = -1;
 	int		x = -1;
 	char	*adr;
-	int		zm = 8;
+	int		zm = 20;
 	int i = -1;
 
 	t->mlx = mlx_init ();
