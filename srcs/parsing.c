@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/18 11:20:12 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/18 17:48:45 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,18 @@ int			ft_key(int keycode, void *param)
 {
 	if (keycode == 53)
 		exit(0);
+	if (keycode == 126)
+		printf("Fleche Haut\n");
+	if (keycode == 124)
+		printf("Fleche Droite\n");
+	if (keycode == 123)
+		printf("Fleche Gauche\n");
+	if (keycode == 125)
+		printf("Fleche Bas\n");
+	if (keycode == 69)
+		printf("PLUS\n");
+	if (keycode == 78)
+		printf("MOINS\n");
 	return (0);
 }
 
@@ -42,7 +54,7 @@ void		trace_gril(t_coord *pt, t_tool *t, int zm, char *adr, int *buf)
 	while (++z < pt->x + 1 && (x + 1) * zm <= 2560 && y <= 1400)
 	{
 		while (++x < pt->y - 1 && z < pt->x && (x + 1) * zm <= 2560 && y <= 1400)
-			trace(x - buf[(z * pt->y) + x], z - buf[(z * pt->y) + x], (x + 1) - buf[(z * pt->y) + x + 1], z - buf[(z * pt->y) + x + 1], adr, t->line, zm);
+			trace(x - buf[(z * pt->y) + x], z - buf[(z * pt->y) + x], (x + 1) - buf[(z * pt->y) + x + 1], z - buf[(z * pt->y) + x + 1], t, zm);
 		x = -1;
 	}
 	z = -1;
@@ -50,22 +62,21 @@ void		trace_gril(t_coord *pt, t_tool *t, int zm, char *adr, int *buf)
 	while (++z < pt->y + 1 && (y + 1) * zm <= 1400 && x <= 2560)
 	{
 		while (++y < pt->x - 1 && z < pt->y && (y + 1) * zm <= 1400 && x <= 2560)
-			trace(z - buf[(y * pt->y) + z], y - buf[(y * pt->y) + z], z - buf[((y + 1) * pt->y) + z], (y + 1) - buf[((y + 1) * pt->y) + z], adr, t->line, zm);
+			trace(z - buf[(y * pt->y) + z], y - buf[(y * pt->y) + z], z - buf[((y + 1) * pt->y) + z], (y + 1) - buf[((y + 1) * pt->y) + z], t, zm);
 		y = -1;
 	}
 }
 
 void		start_window(char **map, t_coord *pt, t_tool *t, int *buf)
 {
-	char	*adr;
 	int		zm;
 
 	zm = 5;
 	t->mlx = mlx_init();
 	t->win = mlx_new_window(t->mlx, 2560, 1400, "Coffee");
 	t->img = mlx_new_image(t->mlx, 2560, 1400);
-	adr = mlx_get_data_addr(t->img, &(t->bit), &(t->line), &(t->endian));
-	trace_gril(pt, t, zm, adr, buf);
+	t->adr = mlx_get_data_addr(t->img, &(t->bit), &(t->line), &(t->endian));
+	trace_gril(pt, t, zm, t->adr, buf);
 	mlx_put_image_to_window(t->mlx, t->win, t->img, 0, 0);
 	mlx_key_hook(t->win, ft_key, 0);
 	mlx_loop(t->mlx);
@@ -114,7 +125,6 @@ int			get_info_map(int i, char *buf)
 	if (pt->x == -1)
 		return (0);
 	t = (t_tool*)malloc(sizeof(t_tool));
-	printf("%i\n", map[10][0] - '0');
 	start_window(map, pt, t, strsplit_two(buf, ' ', '\n'));
 	return (0);
 }
@@ -125,9 +135,16 @@ int			main(int ac, char **av)
 	int		rd;
 	char	buf[BUFF_SIZE + 1];
 
-	if (ac != 2 || !(op = open(av[1], O_RDONLY)))
-		return (0);
-	rd = read(op, buf, BUFF_SIZE);
+	if (ac != 2 || (op = open(av[1], O_RDONLY)) == -1)
+	{
+		ft_putendl(strerror(errno));
+		return (-1);
+	}
+	if ((rd = read(op, buf, BUFF_SIZE)) == -1)
+	{
+		ft_putendl(strerror(errno));
+		return (-1);
+	}
 	buf[rd] = '\0';
 	get_info_map(-1, buf);
 	return (0);
