@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/13 16:28:41 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/18 10:44:53 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 
 #define BUFF_SIZE 2000000
 
-#include "minilibx_macos/mlx.h"
+#include "srcs/minilibx_macos/mlx.h"
+#include "srcs/minilibx/mlx.h"
 #include <sys/uio.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
-#include "libft/libft.h"
+#include "./libft/libft.h"
 #include <fcntl.h>
 #include <sys/stat.h>
 
@@ -44,6 +45,7 @@ typedef struct		s_tool
 
 //void	trace_xy(int x1, int y1, int x2, int y2, char *adr, int line);
 //void	trace_yx(int x1, int y1, int x2, int y2, char *adr, int line);
+static int		size_w(char const *s, int *n, char c, char d);
 int 	*strsplit_two(char const *s, char c, char d);
 void	trace(int x1, int y1, int x2, int y2, char *adr, int line, int zm);
 int		get_info_map(int i, char *buf);
