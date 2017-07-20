@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/18 18:46:02 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/20 19:54:37 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		pixel_put(t_tool *tl, t_trace t, int color)
 	tl->adr[++i] = color >> 16 & 0XFF;
 }
 
-void		trace_gril(t_coord *pt, t_tool *t, char *adr, int *buf)
+void		trace_gril(t_coord *pt, t_tool *t, int *buf)
 {
 	int		y;
 	int		z;
@@ -70,13 +70,20 @@ void		trace_gril(t_coord *pt, t_tool *t, char *adr, int *buf)
 
 void		start_window(char **map, t_coord *pt, t_tool *t, int *buf)
 {
-	t->zm = 5;
+	t->zm = 60;
+	t->dex = 600;
+	t->dey = 500;
+	t->xmax = t->dex + ((0 - buf[0]) - (0 - buf[0])) * (t->zm);
+	t->xmin = t->xmax;
+	t->ymax = t->dey + ((0 - buf[0]) + (0 - buf[0])) * (t->zm/2);
+	t->ymin = t->ymax;
 	t->mlx = mlx_init();
 	t->win = mlx_new_window(t->mlx, 2560, 1400, "Coffee");
 	t->img = mlx_new_image(t->mlx, 2560, 1400);
 	t->adr = mlx_get_data_addr(t->img, &(t->bit), &(t->line), &(t->endian));
-	trace_gril(pt, t, t->adr, buf);
+	trace_gril(pt, t, buf);
 	mlx_put_image_to_window(t->mlx, t->win, t->img, 0, 0);
+	printf("Mx %i || My %i || mx %i || my %i\n", t->xmax, t->ymax, t->xmin, t->ymin);
 	mlx_key_hook(t->win, ft_key, 0);
 	mlx_loop(t->mlx);
 }

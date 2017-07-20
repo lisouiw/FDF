@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/10 14:41:22 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/18 18:46:01 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/20 19:41:42 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	trace_yx(t_trace t, t_tool *tl, int y)
 	int		dy;
 	int		dx;
 
-	printf("->x1 = %i y1 = %i x2 = %i y2 = %i y = %i\n", t.x1, t.y1, t.ex, t.ey, y);
+//	printf("->x1 = %i y1 = %i x2 = %i y2 = %i y = %i\n", t.x1, t.y1, t.ex, t.ey, y);
 	dy = 2 * t.ey;
 	dx = 2 * t.ex;
 	i = 0;
@@ -42,7 +42,7 @@ void	trace_xy(t_trace t, t_tool *tl, int x)
 	int		dy;
 	int		dx;
 
-	printf("->x1 = %i y1 = %i x2 = %i y2 = %i x = %i\n", t.x1, t.y1, t.ex, t.ey,x);
+//	printf("->x1 = %i y1 = %i x2 = %i y2 = %i x = %i\n", t.x1, t.y1, t.ex, t.ey,x);
 	dy = 2 * t.ey;
 	dx = 2 * t.ex;
 	i = 0;
@@ -62,18 +62,21 @@ void	trace_xy(t_trace t, t_tool *tl, int x)
 
 void	trace(int x, int y, int xx, int yy, t_tool *tl)
 {
+//	printf("->x1 = %i y1 = %i x2 = %i y2 = %i\n", x, y, xx, yy);
 	t_trace		t;
-	int			dex;
-	int			dey;
-
-	dex = 0;
-	dey = 0;
-	t.x1 = dex + (x - y) * (tl->zm);
-	t.x2 = dex + (xx - yy) * (tl->zm);
-//	printf("->x1 = %i y1 = %i x2 = %i y2 = %i\n", x1, y1, x2, y2);
-	t.y1 = dey + (y + x) * (tl->zm / 2);
-	t.y2 = dey + (yy + xx) * (tl->zm / 2);
-//	printf("x1 = %i y1 = %i x2 = %i y2 = %i\n", x1, y1, x2, y2);
+	t.x1 = tl->dex + (x - y) * (tl->zm);
+	t.x2 = tl->dex + (xx - yy) * (tl->zm);
+	t.y1 = tl->dey + (y + x) * (tl->zm / 2);
+	t.y2 = tl->dey + (yy + xx) * (tl->zm / 2);
+	if (t.x2 > tl->xmax)
+		tl->xmax = t.x2;
+	if (t.y2 > tl->ymax)
+		tl->ymax = t.y2;
+	if (t.x2 < tl->xmin)
+		tl->xmin = t.x2;
+	if (t.y2 < tl->ymin)
+		tl->ymin = t.y2;
+	printf("x1 = %i y1 = %i x2 = %i y2 = %i\n", t.x1, t.y1, t.x2, t.y2);
 	t.ex = abs(t.x2 - t.x1);
 	t.ey = abs(t.y2 - t.y1);
 	t.xinc = t.x1 > t.x2 ? -1 : 1;

@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/18 18:29:43 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/20 18:35:08 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ typedef struct		s_tool
 	char			*adr;
 	int				bit;
 	int				line;
+	int				xmax;
+	int				xmin;
+	int				ymax;
+	int				ymin;
+	int				dex;
+	int				dey;
 }					t_tool;
 
 typedef struct		s_trace
