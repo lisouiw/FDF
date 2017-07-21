@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/20 19:54:37 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/21 15:00:54 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ void		trace_gril(t_coord *pt, t_tool *t, int *buf)
 
 void		start_window(char **map, t_coord *pt, t_tool *t, int *buf)
 {
-	t->zm = 60;
-	t->dex = 600;
-	t->dey = 500;
+	t->zm = 45;
+	t->dex = 450  + 650;
+	t->dey = 352 + 216;
 	t->xmax = t->dex + ((0 - buf[0]) - (0 - buf[0])) * (t->zm);
 	t->xmin = t->xmax;
 	t->ymax = t->dey + ((0 - buf[0]) + (0 - buf[0])) * (t->zm/2);
@@ -83,7 +83,7 @@ void		start_window(char **map, t_coord *pt, t_tool *t, int *buf)
 	t->adr = mlx_get_data_addr(t->img, &(t->bit), &(t->line), &(t->endian));
 	trace_gril(pt, t, buf);
 	mlx_put_image_to_window(t->mlx, t->win, t->img, 0, 0);
-	printf("Mx %i || My %i || mx %i || my %i\n", t->xmax, t->ymax, t->xmin, t->ymin);
+	printf("Mx %i || My %i || mx %i || my %i\nLongueur : %i && Largeur : %i\n", t->xmax, t->ymax, t->xmin, t->ymin, (t->xmax - t->xmin), (t->ymax - t->ymin));
 	mlx_key_hook(t->win, ft_key, 0);
 	mlx_loop(t->mlx);
 }
