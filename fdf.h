@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/20 18:35:08 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/21 16:43:46 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,21 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <errno.h>
+
+typedef struct		s_xy
+{
+	int				x;
+	int				y;
+	int				xx;
+	int				yy;
+	struct s_xy		*next;
+}					t_xy;
+
+typedef struct		s_yx
+{
+	int				x;
+	int				y;
+}					t_yx;
 
 typedef struct		s_coord
 {

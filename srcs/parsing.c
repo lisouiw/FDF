@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/21 15:00:54 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/21 16:59:09 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void		trace_gril(t_coord *pt, t_tool *t, int *buf)
 	y = 0;
 	z = -1;
 	x = -1;
+
 	while (++z < pt->x + 1 && (x + 1) * t->zm <= 2560 && y <= 1400)
 	{
 		while (++x < pt->y - 1 && z < pt->x && (x + 1) * t->zm <= 2560 && y <= 1400)
@@ -60,6 +61,7 @@ void		trace_gril(t_coord *pt, t_tool *t, int *buf)
 	}
 	z = -1;
 	y = -1;
+	exit(0);
 	while (++z < pt->y + 1 && (y + 1) * t->zm <= 1400 && x <= 2560)
 	{
 		while (++y < pt->x - 1 && z < pt->y && (y + 1) * t->zm <= 1400 && x <= 2560)
@@ -68,9 +70,47 @@ void		trace_gril(t_coord *pt, t_tool *t, int *buf)
 	}
 }
 
+t_xy	*add_x(int z, int y, int buf, t_xy *x)
+{
+	t_xy	*new;
+
+	new = NULL;
+	new = (t_xy*)malloc(sizeof(t_xy));
+	new->x = z - buf;
+	printf("%i\n",new->x);
+//	, z - buf[(z * pt->y) + x], (x + 1) - buf[(z * pt->y) + x + 1], z - buf[(z * pt->y) + x + 1], t);
+	return (x);
+}
+
+t_xy	*lst_xy(t_coord *pt, int *buf, t_xy *x)
+{
+	int		y;
+	int		z;
+	int		i;
+
+	i = -1;
+	y = -1;
+	while (++y < pt->x + 1)
+	{
+		z = -1;
+		while (++z < pt->y - 1 && y < pt->x)
+		{
+			i = i+1;
+			x = add_x(z, y, buf[i], x);
+		}
+		printf("\n");
+	}
+	return (x);
+}
+
 void		start_window(char **map, t_coord *pt, t_tool *t, int *buf)
 {
-	t->zm = 45;
+	t_xy	*x;
+//	t_yx	*y;
+	
+	x = lst_xy(pt, buf, NULL);
+	exit (0);
+	t->zm = 5;
 	t->dex = 450  + 650;
 	t->dey = 352 + 216;
 	t->xmax = t->dex + ((0 - buf[0]) - (0 - buf[0])) * (t->zm);
