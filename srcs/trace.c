@@ -60,6 +60,7 @@ void	trace_xy(t_trace t, t_tool *tl, int x)
 	}
 }
 
+//void	trace(t_xy *x, t_tool *tl)
 void	trace(int x, int y, int xx, int yy, t_tool *tl)
 {
 	printf("->X = %i\n", x);

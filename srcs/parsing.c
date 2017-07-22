@@ -40,7 +40,7 @@ void		pixel_put(t_tool *tl, t_trace t, int color)
 	tl->adr[++i] = color >> 8 & 0XFF;
 	tl->adr[++i] = color >> 16 & 0XFF;
 }
-
+/*
 void		trace_gril(t_coord *pt, t_tool *t, int *buf)
 {
 	int		y;
@@ -68,47 +68,115 @@ void		trace_gril(t_coord *pt, t_tool *t, int *buf)
 			trace(z - buf[(y * pt->y) + z], y - buf[(y * pt->y) + z], z - buf[((y + 1) * pt->y) + z], (y + 1) - buf[((y + 1) * pt->y) + z], t);
 		y = -1;
 	}
+}*/
+// placement des variables correctement
+void		trace_gril(t_coord *pt, t_tool *t, int *buf)
+{
+	int		y;
+	int		x;
+
+	y = -1;
+	while (++y < pt->y + 1/* && (x + 1) * t->zm <= 2560*/)
+	{
+		x = -1;
+		while (++x < pt->x - 1 && y < pt->y/* && (x + 1) * t->zm <= 2560*/)
+			trace(x - buf[(y * pt->x) + x], y - buf[(y * pt->x) + x], (x + 1) - buf[(y * pt->x) + x + 1],
+			y - buf[(y * pt->x) + x + 1], t);
+	}
+	x = -1;
+	while (++x < pt->x + 1 /*&& (y + 1) * t->zm <= 1400*/)
+	{
+		y = -1;
+		while (++y < pt->y - 1 && x < pt->x /*&& (y + 1) * t->zm <= 1400*/)
+			trace(x - buf[(y * pt->x) + x], y - buf[(y * pt->x) + x], x - buf[((y + 1) * pt->x) + x],
+			(y + 1) - buf[((y + 1) * pt->x) + x], t);
+	} 
 }
 
-t_xy	*add_x(int z, int y, int buf, t_xy *x)
+void		trace_gril(t_coord *pt, t_tool *t, int *buf)
+{
+	while ()
+		trace();
+	while ()
+		trace();
+}
+
+t_xy	*add_x(int x, int y, int buf, t_xy *xy)
 {
 	t_xy	*new;
 
 	new = NULL;
 	new = (t_xy*)malloc(sizeof(t_xy));
-	new->x = z - buf;
-	printf("%i\n",new->x);
-//	, z - buf[(z * pt->y) + x], (x + 1) - buf[(z * pt->y) + x + 1], z - buf[(z * pt->y) + x + 1], t);
-	return (x);
+	new->x = x - buf[(y * pt->x) + x];
+	new->y = y - buf[(y * pt->x) + x];
+	new->xx = (x + 1) - buf[(y * pt->x) + x + 1];
+	new->yy = y - buf[(y * pt->x) + x + 1];
+	new->next = x;
+	return (new);
 }
 
-t_xy	*lst_xy(t_coord *pt, int *buf, t_xy *x)
+t_yx	*add_y(int x, int y, int buf, t_yx *yx)
+{
+	t_xy	*new;
+
+	new = NULL;
+	new = (t_yx*)malloc(sizeof(t_yx));
+	new->x = x - buf[(y * pt->x) + x];
+	new->y = y - buf[(y * pt->x) + x];
+	new->xx = x - buf[((y + 1) * pt->x) + x];
+	new->yy = (y + 1) - buf[((y + 1) * pt->x) + x]);
+	new->next = y;
+	return (new);
+}
+
+t_xy	*lst_xy(t_coord *pt, int *buf, t_xy *xy)
 {
 	int		y;
-	int		z;
-	int		i;
+	int		x;
 
-	i = -1;
 	y = -1;
-	while (++y < pt->x + 1)
+	while (++y < pt->y + 1)
 	{
-		z = -1;
-		while (++z < pt->y - 1 && y < pt->x)
+		x = -1;
+		while (++x < pt->x - 1 && y < pt->y)
 		{
-			i = i+1;
-			x = add_x(z, y, buf[i], x);
+			xy = add_x(x, y, buf, xy);
+			if (xy->xx > xmax)
+				xmax = xy->xx;
+			if (xy->yy > ymax)
+				ymax = xy->yy;
+			if (xy->xx < xmin)
+				xmin = xy->xx;
+			if (xy->yy < ymin)
+				ymin = xy->yy;
 		}
-		printf("\n");
 	}
-	return (x);
+	return (xy);
+}
+
+t_yx	*lst_yx(t_coord *pt, int *buf, t_xy *yx)
+{
+	int		y;
+	int		x;
+
+	x = -1;
+	// declaration de la premiere variable pour les max et min et ZOOM
+	while (++x < pt->x + 1)
+	{
+		y = -1;
+		while (++y < pt->y - 1 && x < pt->x)
+			yx = add_y(x, y, buf, yx);
+	} 
+	return (yx);
 }
 
 void		start_window(char **map, t_coord *pt, t_tool *t, int *buf)
 {
-	t_xy	*x;
-//	t_yx	*y;
+	t_xy	*xy;
+	t_yx	*yx;
 	
-	x = lst_xy(pt, buf, NULL);
+	xy = lst_xy(pt, buf, NULL);
+	yx = lst_yx(pt, buf, NULL);
 	exit (0);
 	t->zm = 5;
 	t->dex = 450  + 650;
@@ -136,7 +204,7 @@ t_coord		*verif_map(char **map, t_coord *pt, int i, int o)
 	tmp = 0;
 	while (map[i] != NULL)
 		++i;
-	pt->x = i;
+	pt->y = i;
 	i = -1;
 	while (map[++i])
 	{
@@ -147,11 +215,11 @@ t_coord		*verif_map(char **map, t_coord *pt, int i, int o)
 		tmp = (tmp == 0) ? o : tmp;
 		if (tmp != o)
 		{
-			pt->x = -1;
+			pt->y = -1;
 			return (pt);
 		}
 	}
-	pt->y = o;
+	`pt->x = o;
 	return (pt);
 }
 
@@ -167,7 +235,7 @@ void		get_info_map(int i, char *buf)
 	pt->ln = map;
 	pt = verif_map(pt->ln, pt, 0, 0);
 	printf("x-> %i || y-> %i\n", pt->x, pt->y);
-	if (pt->x == -1)
+	if (pt->y == -1)
 		err(NULL, 1);
 	else if (!(t = (t_tool*)malloc(sizeof(t_tool))))
 		err(NULL, 2);
