@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/10 14:41:22 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/21 16:49:17 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/23 17:21:16 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ void	trace_yx(t_trace t, t_tool *tl, int y)
 	dy = 2 * t.ey;
 	dx = 2 * t.ex;
 	i = 0;
-	while (i <= y && t.y1 < 1400)
+	while (i <= y)
 	{
-		pixel_put(tl, t, 0X00F46269);
+		if (t.y1 > -1 && t.y1 < 1400 && t.x1 > -1 && t.x1 < 2560)
+			pixel_put(tl, t, 0X00F46269);
 		++i;
 		t.y1 += t.yinc;
 		t.ey -= dx;
@@ -46,9 +47,10 @@ void	trace_xy(t_trace t, t_tool *tl, int x)
 	dy = 2 * t.ey;
 	dx = 2 * t.ex;
 	i = 0;
-	while (i <= x && t.x1 < 2560)
+	while (i <= x)
 	{
-		pixel_put(tl, t, 0X00F46269);
+		if (t.x1 > -1 && t.x1 < 2560 && t.y1 > -1 && t.y1 < 1400)
+			pixel_put(tl, t, 0X00F46269);
 		++i;
 		t.x1 += t.xinc;
 		t.ex -= dy;
@@ -60,15 +62,15 @@ void	trace_xy(t_trace t, t_tool *tl, int x)
 	}
 }
 
-//void	trace(t_xy *x, t_tool *tl)
-void	trace(int x, int y, int xx, int yy, t_tool *tl)
+void	trace(t_xy *x, t_tool *tl)
+//void	trace(int x, int y, int xx, int yy, t_tool *tl)
 {
-	printf("->X = %i\n", x);
+//	printf("->X = %i\n", x);
 	t_trace		t;
-	t.x1 = tl->dex + (x - y) * (tl->zm);
-	t.x2 = tl->dex + (xx - yy) * (tl->zm);
-	t.y1 = tl->dey + (y + x) * (tl->zm / 2);
-	t.y2 = tl->dey + (yy + xx) * (tl->zm / 2);
+	t.x1 = tl->dex + (x->x - x->y) * (tl->zm);
+	t.x2 = tl->dex + (x->xx - x->yy) * (tl->zm);
+	t.y1 = tl->dey + (x->y + x->x) * (tl->zm / 2);
+	t.y2 = tl->dey + (x->yy + x->xx) * (tl->zm / 2);
 	if (t.x2 > tl->xmax)
 		tl->xmax = t.x2;
 	if (t.y2 > tl->ymax)
@@ -77,7 +79,7 @@ void	trace(int x, int y, int xx, int yy, t_tool *tl)
 		tl->xmin = t.x2;
 	if (t.y2 < tl->ymin)
 		tl->ymin = t.y2;
-	//printf("x1 = %i y1 = %i x2 = %i y2 = %i\n", t.x1, t.y1, t.x2, t.y2);
+	printf("x1 = %i y1 = %i x2 = %i y2 = %i\n", t.x1, t.y1, t.x2, t.y2);
 	t.ex = abs(t.x2 - t.x1);
 	t.ey = abs(t.y2 - t.y1);
 	t.xinc = t.x1 > t.x2 ? -1 : 1;

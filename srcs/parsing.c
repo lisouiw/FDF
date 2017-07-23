@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/21 16:59:09 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/23 17:33:09 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,39 +69,47 @@ void		trace_gril(t_coord *pt, t_tool *t, int *buf)
 		y = -1;
 	}
 }*/
+// 
 // placement des variables correctement
+/*
 void		trace_gril(t_coord *pt, t_tool *t, int *buf)
 {
 	int		y;
 	int		x;
 
 	y = -1;
-	while (++y < pt->y + 1/* && (x + 1) * t->zm <= 2560*/)
+	while (++y < pt->y + 1 && (x + 1) * t->zm <= 2560)
 	{
 		x = -1;
-		while (++x < pt->x - 1 && y < pt->y/* && (x + 1) * t->zm <= 2560*/)
+		while (++x < pt->x - 1 && y < pt->y && (x + 1) * t->zm <= 2560)
 			trace(x - buf[(y * pt->x) + x], y - buf[(y * pt->x) + x], (x + 1) - buf[(y * pt->x) + x + 1],
 			y - buf[(y * pt->x) + x + 1], t);
 	}
 	x = -1;
-	while (++x < pt->x + 1 /*&& (y + 1) * t->zm <= 1400*/)
+	while (++x < pt->x + 1 && (y + 1) * t->zm <= 1400)
 	{
 		y = -1;
-		while (++y < pt->y - 1 && x < pt->x /*&& (y + 1) * t->zm <= 1400*/)
+		while (++y < pt->y - 1 && x < pt->x && (y + 1) * t->zm <= 1400)
 			trace(x - buf[(y * pt->x) + x], y - buf[(y * pt->x) + x], x - buf[((y + 1) * pt->x) + x],
 			(y + 1) - buf[((y + 1) * pt->x) + x], t);
 	} 
 }
-
-void		trace_gril(t_coord *pt, t_tool *t, int *buf)
+*/
+void		trace_gril(t_coord *pt, t_tool *tl, t_xy *xy, t_xy *yx)
 {
-	while ()
-		trace();
-	while ()
-		trace();
+	while (xy != NULL)
+	{
+		trace(xy, tl);
+		xy = xy->next;
+	}
+	while (yx != NULL)
+	{
+		trace(yx, tl);
+		yx = yx->next;
+	}
 }
 
-t_xy	*add_x(int x, int y, int buf, t_xy *xy)
+t_xy	*add_x(int x, int y, int *buf, t_xy *xy, t_coord *pt)
 {
 	t_xy	*new;
 
@@ -111,21 +119,7 @@ t_xy	*add_x(int x, int y, int buf, t_xy *xy)
 	new->y = y - buf[(y * pt->x) + x];
 	new->xx = (x + 1) - buf[(y * pt->x) + x + 1];
 	new->yy = y - buf[(y * pt->x) + x + 1];
-	new->next = x;
-	return (new);
-}
-
-t_yx	*add_y(int x, int y, int buf, t_yx *yx)
-{
-	t_xy	*new;
-
-	new = NULL;
-	new = (t_yx*)malloc(sizeof(t_yx));
-	new->x = x - buf[(y * pt->x) + x];
-	new->y = y - buf[(y * pt->x) + x];
-	new->xx = x - buf[((y + 1) * pt->x) + x];
-	new->yy = (y + 1) - buf[((y + 1) * pt->x) + x]);
-	new->next = y;
+	new->next = xy;
 	return (new);
 }
 
@@ -140,24 +134,39 @@ t_xy	*lst_xy(t_coord *pt, int *buf, t_xy *xy)
 		x = -1;
 		while (++x < pt->x - 1 && y < pt->y)
 		{
-			xy = add_x(x, y, buf, xy);
-			if (xy->xx > xmax)
-				xmax = xy->xx;
-			if (xy->yy > ymax)
-				ymax = xy->yy;
-			if (xy->xx < xmin)
-				xmin = xy->xx;
-			if (xy->yy < ymin)
-				ymin = xy->yy;
+			xy = add_x(x, y, buf, xy, pt);
+			if (xy->xx > pt->xmax)
+				pt->xmax = xy->xx;
+			if (xy->yy > pt->ymax)
+				pt->ymax = xy->yy;
+			if (xy->xx < pt->xmin)
+				pt->xmin = xy->xx;
+			if (xy->yy < pt->ymin)
+				pt->ymin = xy->yy;
 		}
 	}
 	return (xy);
 }
 
-t_yx	*lst_yx(t_coord *pt, int *buf, t_xy *yx)
+t_xy	*add_y(int x, int y, int *buf, t_xy *yx, t_coord *pt)
+{
+	t_xy	*new;
+
+	new = NULL;
+	new = (t_xy*)malloc(sizeof(t_xy));
+	new->x = x - buf[(y * pt->x) + x];
+	new->y = y - buf[(y * pt->x) + x];
+	new->xx = x - buf[((y + 1) * pt->x) + x];
+	new->yy = (y + 1) - buf[((y + 1) * pt->x) + x];
+	new->next = yx;
+	return (new);
+}
+
+t_xy	*lst_yx(t_coord *pt, int *buf, t_xy *yx)
 {
 	int		y;
 	int		x;
+	int		i = -1;
 
 	x = -1;
 	// declaration de la premiere variable pour les max et min et ZOOM
@@ -165,35 +174,45 @@ t_yx	*lst_yx(t_coord *pt, int *buf, t_xy *yx)
 	{
 		y = -1;
 		while (++y < pt->y - 1 && x < pt->x)
-			yx = add_y(x, y, buf, yx);
-	} 
+			yx = add_y(x, y, buf, yx, pt);
+	}
+	pt->xmax = (0 - buf[0]) - (0 - buf[0]);
+	pt->xmin = pt->xmax;
+	pt->ymax = (0 - buf[0]) + (0 - buf[0]);
+	pt->ymin = pt->ymax;
 	return (yx);
 }
 
-void		start_window(char **map, t_coord *pt, t_tool *t, int *buf)
+void		start_window(char **map, t_coord *pt, t_tool *tl, int *buf)
 {
 	t_xy	*xy;
-	t_yx	*yx;
-	
-	xy = lst_xy(pt, buf, NULL);
+	t_xy	*yx;
+
+	pt->buf = buf;
 	yx = lst_yx(pt, buf, NULL);
-	exit (0);
-	t->zm = 5;
-	t->dex = 450  + 650;
-	t->dey = 352 + 216;
-	t->xmax = t->dex + ((0 - buf[0]) - (0 - buf[0])) * (t->zm);
-	t->xmin = t->xmax;
-	t->ymax = t->dey + ((0 - buf[0]) + (0 - buf[0])) * (t->zm/2);
-	t->ymin = t->ymax;
-	t->mlx = mlx_init();
-	t->win = mlx_new_window(t->mlx, 2560, 1400, "Coffee");
-	t->img = mlx_new_image(t->mlx, 2560, 1400);
-	t->adr = mlx_get_data_addr(t->img, &(t->bit), &(t->line), &(t->endian));
-	trace_gril(pt, t, buf);
-	mlx_put_image_to_window(t->mlx, t->win, t->img, 0, 0);
-	printf("Mx %i || My %i || mx %i || my %i\nLongueur : %i && Largeur : %i\n", t->xmax, t->ymax, t->xmin, t->ymin, (t->xmax - t->xmin), (t->ymax - t->ymin));
-	mlx_key_hook(t->win, ft_key, 0);
-	mlx_loop(t->mlx);
+	xy = lst_xy(pt, buf, NULL);
+	tl->zm = 38;
+//	tl->dex = 450  + 650;
+//	tl->dey = 352 + 216;
+	printf("xmax %i xmin %i ymax %i ymin %i\nxlen %i && ylen %i\n", pt->xmax, pt->xmin, pt->ymax, pt->ymin, 2560/(2*(pt->xmax - pt->xmin)), 1400 /(2* (pt->ymax - pt->ymin)));
+	tl->dex = 380;
+	tl->dey = 304;
+//	pt->xmax = tl->dex + ((0 - buf[0]) - (0 - buf[0])) * (tl->zm);
+//	pt->xmin = pt->xmax;
+//	pt->ymax = tl->dey + ((0 - buf[0]) + (0 - buf[0])) * (tl->zm/2);
+//	pt->ymin = pt->ymax;
+	tl->mlx = mlx_init();
+	tl->win = mlx_new_window(tl->mlx, 2560, 1400, "Coffee");
+	tl->img = mlx_new_image(tl->mlx, 2560, 1400);
+	tl->adr = mlx_get_data_addr(tl->img, &(tl->bit), &(tl->line), &(tl->endian));
+	trace_gril(pt, tl, xy, yx);
+	ft_putnbr(tl->xmin);
+	ft_putchar('\n');
+	ft_putnbr(tl->ymin);
+	mlx_put_image_to_window(tl->mlx, tl->win, tl->img, 0, 0);
+//	printf("Mx %i || My %i || mx %i || my %i\nLongueur : %i && Largeur : %i\n", t->xmax, t->ymax, t->xmin, t->ymin, (t->xmax - t->xmin), (t->ymax - t->ymin));
+	mlx_key_hook(tl->win, ft_key, 0);
+	mlx_loop(tl->mlx);
 }
 
 t_coord		*verif_map(char **map, t_coord *pt, int i, int o)
@@ -219,7 +238,7 @@ t_coord		*verif_map(char **map, t_coord *pt, int i, int o)
 			return (pt);
 		}
 	}
-	`pt->x = o;
+	pt->x = o;
 	return (pt);
 }
 
