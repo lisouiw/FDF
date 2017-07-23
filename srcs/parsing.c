@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/23 17:54:05 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/23 18:54:46 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,10 @@ t_xy	*lst_yx(t_coord *pt, int *buf, t_xy *xy)
 	int		x;
 
 	y = -1;
+	pt->xmax = (0 - buf[0]) - (0 - buf[0]);
+	pt->xmin = pt->xmax;
+	pt->ymax = (0 - buf[0]) + (0 - buf[0]);
+	pt->ymin = pt->ymax;
 	while (++y < pt->y + 1)
 	{
 		x = -1;
@@ -190,13 +194,17 @@ t_xy	*lst_xy(t_coord *pt, int *buf, t_xy *xy)
 	int		x;
 
 	y = -1;
+	pt->xmax = ((0 - buf[0]) - (0 - buf[0])) * 38;
+	pt->xmin = pt->xmax;
+	pt->ymax = ((0 - buf[0]) + (0 - buf[0])) * (38/2);
+	pt->ymin = pt->ymax;
 	while (++y < pt->y + 1)
 	{
 		x = -1;
 		while (++x < pt->x - 1 && y < pt->y)
 		{
 			pt->xk = ((x + 1) - buf[(y * pt->x) + x + 1]) * 38;
-			pt->yk = (y - buf[(y * pt->x) + x + 1]) * 38;
+			pt->yk = (y - buf[(y * pt->x) + x + 1]) * (38/2);
 			if (pt->xk > pt->xmax)
 				pt->xmax = pt->xk;
 			if (pt->yk > pt->ymax)
@@ -221,10 +229,10 @@ void		start_window(char **map, t_coord *pt, t_tool *tl, int *buf)
 	xy = lst_xy(pt, buf, NULL);
 //	tl->dex = 450  + 650;
 //	tl->dey = 352 + 216;
-	printf("=== xmax %i xmin %i ymax %i ymin %i ===\n=== xlen %i && ylen %i ===\n", pt->xmax, pt->xmin, pt->ymax, pt->ymin, 2560/(2*(pt->xmax - pt->xmin)), 1400 /(2* (pt->ymax - pt->ymin)));
+	printf("=== xmax %i xmin %i ymax %i ymin %i ===\n", pt->xmax, pt->xmin, pt->ymax, pt->ymin);
 	tl->zm = 2;
-	tl->dex = 380;
-	tl->dey = 304;
+	tl->dex = 0;
+	tl->dey = 0;
 //	pt->xmax = tl->dex + ((0 - buf[0]) - (0 - buf[0])) * (tl->zm);
 //	pt->xmin = pt->xmax;
 //	pt->ymax = tl->dey + ((0 - buf[0]) + (0 - buf[0])) * (tl->zm/2);
