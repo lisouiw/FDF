@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/10 14:41:22 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/23 17:21:16 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/23 17:37:37 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	trace(t_xy *x, t_tool *tl)
 		tl->xmin = t.x2;
 	if (t.y2 < tl->ymin)
 		tl->ymin = t.y2;
-	printf("x1 = %i y1 = %i x2 = %i y2 = %i\n", t.x1, t.y1, t.x2, t.y2);
+//	printf("x1 = %i y1 = %i x2 = %i y2 = %i\n", t.x1, t.y1, t.x2, t.y2);
 	t.ex = abs(t.x2 - t.x1);
 	t.ey = abs(t.y2 - t.y1);
 	t.xinc = t.x1 > t.x2 ? -1 : 1;

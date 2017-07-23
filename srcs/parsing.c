@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/23 17:33:09 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/23 17:54:05 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,46 +108,7 @@ void		trace_gril(t_coord *pt, t_tool *tl, t_xy *xy, t_xy *yx)
 		yx = yx->next;
 	}
 }
-
-t_xy	*add_x(int x, int y, int *buf, t_xy *xy, t_coord *pt)
-{
-	t_xy	*new;
-
-	new = NULL;
-	new = (t_xy*)malloc(sizeof(t_xy));
-	new->x = x - buf[(y * pt->x) + x];
-	new->y = y - buf[(y * pt->x) + x];
-	new->xx = (x + 1) - buf[(y * pt->x) + x + 1];
-	new->yy = y - buf[(y * pt->x) + x + 1];
-	new->next = xy;
-	return (new);
-}
-
-t_xy	*lst_xy(t_coord *pt, int *buf, t_xy *xy)
-{
-	int		y;
-	int		x;
-
-	y = -1;
-	while (++y < pt->y + 1)
-	{
-		x = -1;
-		while (++x < pt->x - 1 && y < pt->y)
-		{
-			xy = add_x(x, y, buf, xy, pt);
-			if (xy->xx > pt->xmax)
-				pt->xmax = xy->xx;
-			if (xy->yy > pt->ymax)
-				pt->ymax = xy->yy;
-			if (xy->xx < pt->xmin)
-				pt->xmin = xy->xx;
-			if (xy->yy < pt->ymin)
-				pt->ymin = xy->yy;
-		}
-	}
-	return (xy);
-}
-
+/*
 t_xy	*add_y(int x, int y, int *buf, t_xy *yx, t_coord *pt)
 {
 	t_xy	*new;
@@ -181,6 +142,72 @@ t_xy	*lst_yx(t_coord *pt, int *buf, t_xy *yx)
 	pt->ymax = (0 - buf[0]) + (0 - buf[0]);
 	pt->ymin = pt->ymax;
 	return (yx);
+}*/
+/*
+t_xy	*add_x(int x, int y, int *buf, t_xy *xy, t_coord *pt)
+{
+	t_xy	*new;
+
+	new = NULL;
+	new = (t_xy*)malloc(sizeof(t_xy));
+	new->x = x - buf[(y * pt->x) + x];
+	new->y = y - buf[(y * pt->x) + x];
+	new->xx = (x + 1) - buf[(y * pt->x) + x + 1];
+	new->yy = y - buf[(y * pt->x) + x + 1];
+	new->next = xy;
+	return (new);
+}*/
+
+t_xy	*lst_yx(t_coord *pt, int *buf, t_xy *xy)
+{
+	int		y;
+	int		x;
+
+	y = -1;
+	while (++y < pt->y + 1)
+	{
+		x = -1;
+		while (++x < pt->x - 1 && y < pt->y)
+		{
+			pt->xk = (x + 1) - buf[(y * pt->x) + x + 1];
+			pt->yk = y - buf[(y * pt->x) + x + 1];
+			if (pt->xk > pt->xmax)
+				pt->xmax = pt->xk;
+			if (pt->yk > pt->ymax)
+				pt->ymax = pt->yk;
+			if (pt->xk < pt->xmin)
+				pt->xmin = pt->xk;
+			if (pt->yk < pt->ymin)
+				pt->ymin = pt->yk;
+		}
+	}
+	return (xy);
+}
+
+t_xy	*lst_xy(t_coord *pt, int *buf, t_xy *xy)
+{
+	int		y;
+	int		x;
+
+	y = -1;
+	while (++y < pt->y + 1)
+	{
+		x = -1;
+		while (++x < pt->x - 1 && y < pt->y)
+		{
+			pt->xk = ((x + 1) - buf[(y * pt->x) + x + 1]) * 38;
+			pt->yk = (y - buf[(y * pt->x) + x + 1]) * 38;
+			if (pt->xk > pt->xmax)
+				pt->xmax = pt->xk;
+			if (pt->yk > pt->ymax)
+				pt->ymax = pt->yk;
+			if (pt->xk < pt->xmin)
+				pt->xmin = pt->xk;
+			if (pt->yk < pt->ymin)
+				pt->ymin = pt->yk;
+		}
+	}
+	return (xy);
 }
 
 void		start_window(char **map, t_coord *pt, t_tool *tl, int *buf)
@@ -190,11 +217,12 @@ void		start_window(char **map, t_coord *pt, t_tool *tl, int *buf)
 
 	pt->buf = buf;
 	yx = lst_yx(pt, buf, NULL);
+	printf("=== xmax %i xmin %i ymax %i ymin %i ===\n=== xlen %i && ylen %i ===\n", pt->xmax, pt->xmin, pt->ymax, pt->ymin, 2560/(2*(pt->xmax - pt->xmin)), 1400 /(2* (pt->ymax - pt->ymin)));
 	xy = lst_xy(pt, buf, NULL);
-	tl->zm = 38;
 //	tl->dex = 450  + 650;
 //	tl->dey = 352 + 216;
-	printf("xmax %i xmin %i ymax %i ymin %i\nxlen %i && ylen %i\n", pt->xmax, pt->xmin, pt->ymax, pt->ymin, 2560/(2*(pt->xmax - pt->xmin)), 1400 /(2* (pt->ymax - pt->ymin)));
+	printf("=== xmax %i xmin %i ymax %i ymin %i ===\n=== xlen %i && ylen %i ===\n", pt->xmax, pt->xmin, pt->ymax, pt->ymin, 2560/(2*(pt->xmax - pt->xmin)), 1400 /(2* (pt->ymax - pt->ymin)));
+	tl->zm = 2;
 	tl->dex = 380;
 	tl->dey = 304;
 //	pt->xmax = tl->dex + ((0 - buf[0]) - (0 - buf[0])) * (tl->zm);

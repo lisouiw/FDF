@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/23 17:16:52 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/23 17:43:12 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ typedef struct		s_yx
 typedef struct		s_coord
 {
 	int				x;
+	int				xk;
 	int				y;
+	int				yk;
 	int				xmax;
 	int				xmin;
 	int				ymax;
