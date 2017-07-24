@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/24 11:34:15 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/24 14:14:55 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ static int		size_w(char const *s, int *n, char c, char d);
 int 	*strsplit_two(char const *s, char c, char d);
 void	trace(t_xy *x, t_tool *tl);
 void	get_info_map(int i, char *buf);
-void	start_window(char **map, t_coord *pt, t_tool *t, int *buf);
+void	start_window(t_coord *pt, t_tool *t);
+void	start_window(t_coord *pt, t_tool *t);
 void	pixel_put(t_tool *tl, t_trace t, int color);
 int		ft_key(int keycode, void *param);
 int		err(char *str, int i);
