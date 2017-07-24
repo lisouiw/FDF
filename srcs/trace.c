@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/10 14:41:22 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/23 17:37:37 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/24 13:34:51 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,23 +63,13 @@ void	trace_xy(t_trace t, t_tool *tl, int x)
 }
 
 void	trace(t_xy *x, t_tool *tl)
-//void	trace(int x, int y, int xx, int yy, t_tool *tl)
 {
-//	printf("->X = %i\n", x);
 	t_trace		t;
-	t.x1 = tl->dex + (x->x - x->y) * (tl->zm);
-	t.x2 = tl->dex + (x->xx - x->yy) * (tl->zm);
-	t.y1 = tl->dey + (x->y + x->x) * (tl->zm / 2);
-	t.y2 = tl->dey + (x->yy + x->xx) * (tl->zm / 2);
-	if (t.x2 > tl->xmax)
-		tl->xmax = t.x2;
-	if (t.y2 > tl->ymax)
-		tl->ymax = t.y2;
-	if (t.x2 < tl->xmin)
-		tl->xmin = t.x2;
-	if (t.y2 < tl->ymin)
-		tl->ymin = t.y2;
-//	printf("x1 = %i y1 = %i x2 = %i y2 = %i\n", t.x1, t.y1, t.x2, t.y2);
+
+	t.x1 = tl->dex + (x->x - x->y);
+	t.x2 = tl->dex + (x->xx - x->yy);
+	t.y1 = tl->dey + ((x->y + x->x) / 2);
+	t.y2 = tl->dey + ((x->yy + x->xx) / 2);
 	t.ex = abs(t.x2 - t.x1);
 	t.ey = abs(t.y2 - t.y1);
 	t.xinc = t.x1 > t.x2 ? -1 : 1;
