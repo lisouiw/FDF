@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/24 14:18:33 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/24 17:04:48 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,32 +25,40 @@ int			ft_key(int keycode, void *param)
 	if (keycode == 125)
 		printf("Fleche Bas\n");
 	if (keycode == 69)
-		printf("Plus\n");
+	{
+		((t_coord*)param)->zm += 15;
+		mlx_destroy_image(((t_coord*)param)->mlx, ((t_coord*)param)->img);
+		start_window((t_coord*)param);
+	}
 	if (keycode == 78)
-		printf("MOINS\n");
-	return (keycode);
+	{
+		((t_coord*)param)->zm -= 15;
+		mlx_destroy_image(((t_coord*)param)->mlx, ((t_coord*)param)->img);
+		start_window((t_coord*)param);
+	}
+	return (0);
 }
 
-void		pixel_put(t_tool *tl, t_trace t, int color)
+void		pixel_put(t_trace t, int color, t_coord *pt)
 {
 	int		i;
 
-	i = tl->line * t.y1 + t.x1 * 4;
-	tl->adr[i] = color & 0XFF;
-	tl->adr[++i] = color >> 8 & 0XFF;
-	tl->adr[++i] = color >> 16 & 0XFF;
+	i = pt->line * t.y1 + t.x1 * 4;
+	pt->adr[i] = color & 0XFF;
+	pt->adr[++i] = color >> 8 & 0XFF;
+	pt->adr[++i] = color >> 16 & 0XFF;
 }
 
-void		trace_gril(t_coord *pt, t_tool *tl, t_xy *xy, t_xy *yx)
+void		trace_gril(t_coord *pt, t_xy *xy, t_xy *yx)
 {
 	while (xy != NULL)
 	{
-		trace(xy, tl);
+		trace(xy, pt);
 		xy = xy->next;
 	}
 	while (yx != NULL)
 	{
-		trace(yx, tl);
+		trace(yx, pt);
 		yx = yx->next;
 	}
 }
@@ -83,7 +91,7 @@ t_xy	*add_x(int x, int y, t_xy *xy, t_coord *pt)
 	return (new);
 }
 
-void	giv_zoom(t_coord *pt, t_tool *tl, int y)
+void	giv_zoom(t_coord *pt, int y)
 {
 	int		x;
 
@@ -110,7 +118,7 @@ void	giv_zoom(t_coord *pt, t_tool *tl, int y)
 		? 2560/(2*(pt->xmax - pt->xmin)) : 1400 /(2* (pt->ymax - pt->ymin));
 }
 
-t_xy	*lst_xy(t_coord *pt, t_tool *tl, t_xy *xy)
+t_xy	*lst_xy(t_coord *pt, t_xy *xy)
 {
 	int		y;
 	int		x;
@@ -139,7 +147,7 @@ t_xy	*lst_xy(t_coord *pt, t_tool *tl, t_xy *xy)
 	return (xy);
 }
 
-t_xy	*lst_yx(t_coord *pt, t_tool *tl, t_xy *yx)
+t_xy	*lst_yx(t_coord *pt, t_xy *yx)
 {
 	int		y;
 	int		x;
@@ -154,28 +162,27 @@ t_xy	*lst_yx(t_coord *pt, t_tool *tl, t_xy *yx)
 	return (yx);
 }
 
-void		start_window(t_coord *pt, t_tool *tl)
+void		start_window(t_coord *pt)
 {
 	t_xy	*xy;
 	t_xy	*yx;
 
 	if (pt->zm == 0)
 	{
-		tl->mlx = mlx_init();
-		giv_zoom(pt, tl, -1);
-		tl->win = mlx_new_window(tl->mlx, 2560, 1400, "Coffee");
+		pt->mlx = mlx_init();
+		giv_zoom(pt, -1);
+		pt->win = mlx_new_window(pt->mlx, 2560, 1400, "Coffee");
 	}
-	xy = lst_xy(pt, tl, NULL);
-	yx = lst_yx(pt, tl, NULL);
-	tl->dex = (-1 * pt->xmin) + (2560 - (pt->xmax - pt->xmin)) / 2;
-	tl->dey = (-1 * pt->ymin) + (1400 - (pt->ymax - pt->ymin)) / 2;
-	tl->img = mlx_new_image(tl->mlx, 2560, 1400);
-	tl->adr = mlx_get_data_addr(tl->img, &(tl->bit), &(tl->line), &(tl->endian));
-	trace_gril(pt, tl, xy, yx);
-	mlx_put_image_to_window(tl->mlx, tl->win, tl->img, 0, 0);
-	if ((mlx_key_hook(tl->win, ft_key, 0) == 69))
-			mlx_destroy_image(tl->mlx, tl->img);
-	mlx_loop(tl->mlx);
+	xy = lst_xy(pt, NULL);
+	yx = lst_yx(pt, NULL);
+	pt->dex = (-1 * pt->xmin) + (2560 - (pt->xmax - pt->xmin)) / 2;
+	pt->dey = (-1 * pt->ymin) + (1400 - (pt->ymax - pt->ymin)) / 2;
+	pt->img = mlx_new_image(pt->mlx, 2560, 1400);
+	pt->adr = mlx_get_data_addr(pt->img, &(pt->bit), &(pt->line), &(pt->endian));
+	trace_gril(pt, xy, yx);
+	mlx_put_image_to_window(pt->mlx, pt->win, pt->img, 0, 0);
+	mlx_hook(pt->win, 2, 3, ft_key, pt);
+	mlx_loop(pt->mlx);
 }
 
 t_coord		*verif_map(char **map, t_coord *pt, int i, int o)
@@ -209,7 +216,6 @@ void		get_info_map(int i, char *buf)
 {
 	char		**map;
 	t_coord		*pt;
-	t_tool		*t;
 
 	pt = NULL;
 	pt = (t_coord*)malloc(sizeof(t_coord));
@@ -219,13 +225,11 @@ void		get_info_map(int i, char *buf)
 	printf("x-> %i || y-> %i\n", pt->x, pt->y);
 	if (pt->y == -1)
 		err(NULL, 1);
-	else if (!(t = (t_tool*)malloc(sizeof(t_tool))))
-		err(NULL, 2);
 	else
 	{
 		pt->buf = strsplit_two(buf, ' ', '\n');
 		pt->zm = 0;
-		start_window(pt, t);
+		start_window(pt);
 	}
 }
 

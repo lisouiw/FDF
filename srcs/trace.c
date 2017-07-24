@@ -6,26 +6,25 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/10 14:41:22 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/24 13:34:51 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/24 16:44:04 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-void	trace_yx(t_trace t, t_tool *tl, int y)
+void	trace_yx(t_trace t, int y, t_coord *pt)
 {
 	int		i;
 	int		dy;
 	int		dx;
 
-//	printf("->x1 = %i y1 = %i x2 = %i y2 = %i y = %i\n", t.x1, t.y1, t.ex, t.ey, y);
 	dy = 2 * t.ey;
 	dx = 2 * t.ex;
 	i = 0;
 	while (i <= y)
 	{
 		if (t.y1 > -1 && t.y1 < 1400 && t.x1 > -1 && t.x1 < 2560)
-			pixel_put(tl, t, 0X00F46269);
+			pixel_put(t, 0X00F46269,pt);
 		++i;
 		t.y1 += t.yinc;
 		t.ey -= dx;
@@ -37,20 +36,19 @@ void	trace_yx(t_trace t, t_tool *tl, int y)
 	}
 }
 
-void	trace_xy(t_trace t, t_tool *tl, int x)
+void	trace_xy(t_trace t, int x, t_coord *pt)
 {
 	int		i;
 	int		dy;
 	int		dx;
 
-//	printf("->x1 = %i y1 = %i x2 = %i y2 = %i x = %i\n", t.x1, t.y1, t.ex, t.ey,x);
 	dy = 2 * t.ey;
 	dx = 2 * t.ex;
 	i = 0;
 	while (i <= x)
 	{
 		if (t.x1 > -1 && t.x1 < 2560 && t.y1 > -1 && t.y1 < 1400)
-			pixel_put(tl, t, 0X00F46269);
+			pixel_put(t, 0X00F46269, pt);
 		++i;
 		t.x1 += t.xinc;
 		t.ex -= dy;
@@ -62,20 +60,20 @@ void	trace_xy(t_trace t, t_tool *tl, int x)
 	}
 }
 
-void	trace(t_xy *x, t_tool *tl)
+void	trace(t_xy *x, t_coord *pt)
 {
 	t_trace		t;
 
-	t.x1 = tl->dex + (x->x - x->y);
-	t.x2 = tl->dex + (x->xx - x->yy);
-	t.y1 = tl->dey + ((x->y + x->x) / 2);
-	t.y2 = tl->dey + ((x->yy + x->xx) / 2);
+	t.x1 = pt->dex + (x->x - x->y);
+	t.x2 = pt->dex + (x->xx - x->yy);
+	t.y1 = pt->dey + ((x->y + x->x) / 2);
+	t.y2 = pt->dey + ((x->yy + x->xx) / 2);
 	t.ex = abs(t.x2 - t.x1);
 	t.ey = abs(t.y2 - t.y1);
 	t.xinc = t.x1 > t.x2 ? -1 : 1;
 	t.yinc = t.y1 > t.y2 ? -1 : 1;
 	if (t.ex > t.ey)
-		trace_xy(t, tl, t.ex);
+		trace_xy(t, t.ex, pt);
 	else
-		trace_yx(t, tl, t.ey);
+		trace_yx(t, t.ey, pt);
 }

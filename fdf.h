@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/24 14:14:55 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/24 16:45:33 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,16 @@ typedef struct		s_yx
 
 typedef struct		s_coord
 {
+	int				dex;
+	int				dey;
 	int				zm;
+	void			*mlx;
+	void			*win;
+	void			*img;
+	int				endian;
+	char			*adr;
+	int				bit;
+	int				line;
 	int				x;
 	int				xk;
 	int				y;
@@ -59,24 +68,6 @@ typedef struct		s_coord
 	int				*buf;
 	char			**ln;
 }					t_coord;
-
-typedef struct		s_tool
-{
-	int				zm;
-	void			*mlx;
-	void			*win;
-	void			*img;
-	int				endian;
-	char			*adr;
-	int				bit;
-	int				line;
-	int				dex;
-	int				dey;
-	int				xmax;
-	int				xmin;
-	int				ymax;
-	int				ymin;
-}					t_tool;
 
 typedef struct		s_trace
 {
@@ -90,15 +81,14 @@ typedef struct		s_trace
 	int				yinc;
 }					t_trace;
 
-void	trace_xy(t_trace t, t_tool *tl, int x);
-void	trace_yx(t_trace t, t_tool *tl, int y);
+void	trace_xy(t_trace t, int x, t_coord *pt);
+void	trace_yx(t_trace t, int y, t_coord *pt);
 static int		size_w(char const *s, int *n, char c, char d);
 int 	*strsplit_two(char const *s, char c, char d);
-void	trace(t_xy *x, t_tool *tl);
+void	trace(t_xy *x, t_coord *pt);
 void	get_info_map(int i, char *buf);
-void	start_window(t_coord *pt, t_tool *t);
-void	start_window(t_coord *pt, t_tool *t);
-void	pixel_put(t_tool *tl, t_trace t, int color);
+void	start_window(t_coord *pt);
+void	pixel_put(t_trace t, int color, t_coord *pt);
 int		ft_key(int keycode, void *param);
 int		err(char *str, int i);
 
