@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/24 17:04:48 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/24 18:15:34 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,19 @@ int			ft_key(int keycode, void *param)
 	if (keycode == 53)
 		exit(0);
 	if (keycode == 126)
-		printf("Fleche Haut\n");
-	if (keycode == 124)
-		printf("Fleche Droite\n");
+		((t_coord*)param)->dey -= 25;
 	if (keycode == 123)
-		printf("Fleche Gauche\n");
+		((t_coord*)param)->dex -= 25;
+	if (keycode == 124)
+		((t_coord*)param)->dex += 25;
 	if (keycode == 125)
-		printf("Fleche Bas\n");
+		((t_coord*)param)->dey += 25;
 	if (keycode == 69)
-	{
-		((t_coord*)param)->zm += 15;
-		mlx_destroy_image(((t_coord*)param)->mlx, ((t_coord*)param)->img);
-		start_window((t_coord*)param);
-	}
-	if (keycode == 78)
-	{
-		((t_coord*)param)->zm -= 15;
-		mlx_destroy_image(((t_coord*)param)->mlx, ((t_coord*)param)->img);
-		start_window((t_coord*)param);
-	}
+		((t_coord*)param)->zm += ((t_coord*)param)->s_zm;
+	if (keycode == 78 && ((t_coord*)param)->zm - ((t_coord*)param)->s_zm > 1)
+		((t_coord*)param)->zm -= ((t_coord*)param)->s_zm;
+	mlx_destroy_image(((t_coord*)param)->mlx, ((t_coord*)param)->img);
+	start_window((t_coord*)param);
 	return (0);
 }
 
@@ -116,6 +110,7 @@ void	giv_zoom(t_coord *pt, int y)
 	}
 	pt->zm = 2560/(2*(pt->xmax - pt->xmin)) < 1400 /(2* (pt->ymax - pt->ymin))
 		? 2560/(2*(pt->xmax - pt->xmin)) : 1400 /(2* (pt->ymax - pt->ymin));
+	pt->s_zm = pt->zm > 10 ? 5 : 1;
 }
 
 t_xy	*lst_xy(t_coord *pt, t_xy *xy)
@@ -172,11 +167,16 @@ void		start_window(t_coord *pt)
 		pt->mlx = mlx_init();
 		giv_zoom(pt, -1);
 		pt->win = mlx_new_window(pt->mlx, 2560, 1400, "Coffee");
+		xy = lst_xy(pt, NULL);
+		yx = lst_yx(pt, NULL);
+		pt->dex = (-1 * pt->xmin) + (2560 - (pt->xmax - pt->xmin)) / 2;
+		pt->dey = (-1 * pt->ymin) + (1400 - (pt->ymax - pt->ymin)) / 2;
 	}
-	xy = lst_xy(pt, NULL);
-	yx = lst_yx(pt, NULL);
-	pt->dex = (-1 * pt->xmin) + (2560 - (pt->xmax - pt->xmin)) / 2;
-	pt->dey = (-1 * pt->ymin) + (1400 - (pt->ymax - pt->ymin)) / 2;
+	else
+	{
+		xy = lst_xy(pt, NULL);
+		yx = lst_yx(pt, NULL);
+	}
 	pt->img = mlx_new_image(pt->mlx, 2560, 1400);
 	pt->adr = mlx_get_data_addr(pt->img, &(pt->bit), &(pt->line), &(pt->endian));
 	trace_gril(pt, xy, yx);

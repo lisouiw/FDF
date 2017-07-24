@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/24 16:45:33 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/24 18:10:15 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct		s_coord
 	int				dex;
 	int				dey;
 	int				zm;
+	int				s_zm;
 	void			*mlx;
 	void			*win;
 	void			*img;
