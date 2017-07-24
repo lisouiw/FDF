@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/24 18:15:34 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/24 18:20:51 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		trace_gril(t_coord *pt, t_xy *xy, t_xy *yx)
 	}
 }
 
-t_xy	*add_y(int x, int y, t_xy *yx, t_coord *pt)
+t_xy		*add_y(int x, int y, t_xy *yx, t_coord *pt)
 {
 	t_xy	*new;
 
@@ -71,10 +71,10 @@ t_xy	*add_y(int x, int y, t_xy *yx, t_coord *pt)
 	return (new);
 }
 
-t_xy	*add_x(int x, int y, t_xy *xy, t_coord *pt)
+t_xy		*add_x(int x, int y, t_xy *xy, t_coord *pt)
 {
 	t_xy	*new;
- 
+
 	new = NULL;
 	new = (t_xy*)malloc(sizeof(t_xy));
 	new->x = (x - pt->buf[(y * pt->x) + x]) * (pt->zm);
@@ -85,7 +85,7 @@ t_xy	*add_x(int x, int y, t_xy *xy, t_coord *pt)
 	return (new);
 }
 
-void	giv_zoom(t_coord *pt, int y)
+void		giv_zoom(t_coord *pt, int y)
 {
 	int		x;
 
@@ -108,12 +108,12 @@ void	giv_zoom(t_coord *pt, int y)
 				pt->ymin = pt->yk;
 		}
 	}
-	pt->zm = 2560/(2*(pt->xmax - pt->xmin)) < 1400 /(2* (pt->ymax - pt->ymin))
-		? 2560/(2*(pt->xmax - pt->xmin)) : 1400 /(2* (pt->ymax - pt->ymin));
+	pt->zm = 2560 / (2 * (pt->xmax - pt->xmin)) < 1400 / (2 * (pt->ymax - pt->ymin))
+		? 2560 / (2 * (pt->xmax - pt->xmin)) : 1400 / (2 * (pt->ymax - pt->ymin));
 	pt->s_zm = pt->zm > 10 ? 5 : 1;
 }
 
-t_xy	*lst_xy(t_coord *pt, t_xy *xy)
+t_xy		*lst_xy(t_coord *pt, t_xy *xy)
 {
 	int		y;
 	int		x;
@@ -129,11 +129,11 @@ t_xy	*lst_xy(t_coord *pt, t_xy *xy)
 		while (++x < pt->x - 1 && y < pt->y)
 		{
 			xy = add_x(x, y, xy, pt);
-			if((pt->xk = (xy->xx - xy->yy)) > pt->xmax)
+			if ((pt->xk = (xy->xx - xy->yy)) > pt->xmax)
 				pt->xmax = pt->xk;
 			if (pt->xk < pt->xmin)
 				pt->xmin = pt->xk;
-			if(pt->ymax < (pt->yk = (xy->xx + xy->yy) / 2))
+			if (pt->ymax < (pt->yk = (xy->xx + xy->yy) / 2))
 				pt->ymax = pt->yk;
 			if (pt->yk < pt->ymin)
 				pt->ymin = pt->yk;
@@ -142,7 +142,7 @@ t_xy	*lst_xy(t_coord *pt, t_xy *xy)
 	return (xy);
 }
 
-t_xy	*lst_yx(t_coord *pt, t_xy *yx)
+t_xy		*lst_yx(t_coord *pt, t_xy *yx)
 {
 	int		y;
 	int		x;
@@ -222,7 +222,6 @@ void		get_info_map(int i, char *buf)
 	map = ft_strsplit(buf, '\n');
 	pt->ln = map;
 	pt = verif_map(pt->ln, pt, 0, 0);
-	printf("x-> %i || y-> %i\n", pt->x, pt->y);
 	if (pt->y == -1)
 		err(NULL, 1);
 	else
