@@ -67,7 +67,7 @@ typedef struct		s_coord
 	int				ymax;
 	int				ymin;
 	int				*buf;
-	char			**ln;
+	char			**map;
 }					t_coord;
 
 typedef struct		s_trace

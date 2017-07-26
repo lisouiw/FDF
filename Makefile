@@ -16,7 +16,7 @@ CC = gcc
 
 SRCDIR = srcs
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -g
 
 SRCS = parsing.c trace.c strsplit_two.c err.c
 

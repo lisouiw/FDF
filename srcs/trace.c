@@ -24,7 +24,7 @@ void	trace_yx(t_trace t, int y, t_coord *pt)
 	while (i <= y)
 	{
 		if (t.y1 > -1 && t.y1 < 1400 && t.x1 > -1 && t.x1 < 2560)
-			pixel_put(t, 0X00F46269, pt);
+			pixel_put(t, 13959168, pt);
 		++i;
 		t.y1 += t.yinc;
 		t.ey -= dx;

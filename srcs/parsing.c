@@ -214,12 +214,11 @@ t_coord		*verif_map(char **map, t_coord *pt, int i, int o)
 
 void		get_info_map(t_coord *pt, char *buf)
 {
-	char		**map;
-
 	pt = (t_coord*)malloc(sizeof(t_coord));
-	map = ft_strsplit(buf, '\n');
-	pt->ln = map;
-	pt = verif_map(pt->ln, pt, 0, 0);
+	pt->map = ft_strsplit(buf, '\n');
+//	map = ft_strsplit(buf, '\n');
+//	pt->ln = map;
+	pt = verif_map(pt->map, pt, 0, 0);
 	if (pt->y == -1)
 		err(NULL, 1);
 	else
