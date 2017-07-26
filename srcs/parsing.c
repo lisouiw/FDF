@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/24 18:20:51 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/26 18:19:03 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,12 +212,10 @@ t_coord		*verif_map(char **map, t_coord *pt, int i, int o)
 	return (pt);
 }
 
-void		get_info_map(int i, char *buf)
+void		get_info_map(t_coord *pt, char *buf)
 {
 	char		**map;
-	t_coord		*pt;
 
-	pt = NULL;
 	pt = (t_coord*)malloc(sizeof(t_coord));
 	map = ft_strsplit(buf, '\n');
 	pt->ln = map;
@@ -243,6 +241,6 @@ int			main(int ac, char **av)
 	if ((rd = read(op, buf, BUFF_SIZE)) == -1)
 		return (err(strerror(errno), 0));
 	buf[rd] = '\0';
-	get_info_map(-1, buf);
+	get_info_map(NULL, buf);
 	return (0);
 }

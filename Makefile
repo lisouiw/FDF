@@ -6,7 +6,7 @@
 #    By: ltran <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/06/23 14:18:46 by ltran             #+#    #+#              #
-#    Updated: 2017/07/18 10:36:36 by ltran            ###   ########.fr        #
+#    Updated: 2017/07/26 18:26:37 by ltran            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,9 @@ SRCDIR = srcs
 
 FLAGS = -Wall -Werror -Wextra
 
-SRCS = parsing.c trace.c strsplit_two
+SRCS = parsing.c trace.c strsplit_two.c err.c
 
-F_MLX = /*-Lminilibx_macos*/ -lmlx -framework OpenGL -framework AppKit
+F_MLX = -Lminilibx_macos -lmlx -framework OpenGL -framework AppKit
 
 SRC_N = $(addprefix $(SRCDIR)/, $(SRCS))
 
@@ -34,7 +34,7 @@ all : $(NAME)
 
 $(NAME): $(OBJS)
 	make -C ./libft/
-	$(CC) $(OBJS) $(LIBFT) $(FLAGS) -o $(NAME)
+	$(CC) $(OBJS) $(LIBFT) $(FLAGS) -o $(NAME) $(F_MLX)
 
 ${OBJDIR}/%.o: srcs/%.c
 	@mkdir -p ${OBJDIR}

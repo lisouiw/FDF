@@ -6,13 +6,32 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 15:01:02 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/18 10:32:16 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/26 18:24:37 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-static int		*nb_word(const char *s, char c, char d, int *w)
+int		size_w(char const *s, int *n, char c, char d)
+{
+	int		i;
+
+	i = 0;
+	while (s[*n])
+	{
+		if (s[*n] != c && s[*n] != d)
+		{
+			while (s[*n + i] != c && s[*n + i] != d && s[*n + i] != '\0')
+				++i;
+			*n += i;
+			return (ft_atoi(ft_strsub(s, *n - i, i)));
+		}
+		++(*n);
+	}
+	return (0);
+}
+
+int		*nb_word(const char *s, char c, char d, int *w)
 {
 	int		i;
 	int		*spl;
@@ -34,25 +53,6 @@ static int		*nb_word(const char *s, char c, char d, int *w)
 	spl = (int*)malloc((*w + 1) * sizeof(int));
 	spl[*w] = 0;
 	return (spl);
-}
-
-static int		size_w(char const *s, int *n, char c, char d)
-{
-	int		i;
-
-	i = 0;
-	while (s[*n])
-	{
-		if (s[*n] != c && s[*n] != d)
-		{
-			while (s[*n + i] != c && s[*n + i] != d && s[*n + i] != '\0')
-				++i;
-			*n += i;
-			return (ft_atoi(ft_strsub(s, *n - i, i)));
-		}
-		++(*n);
-	}
-	return (0);
 }
 
 int				*strsplit_two(char const *s, char c, char d)

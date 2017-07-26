@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/24 18:10:15 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/26 18:20:49 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,9 @@ typedef struct		s_trace
 
 void	trace_xy(t_trace t, int x, t_coord *pt);
 void	trace_yx(t_trace t, int y, t_coord *pt);
-static int		size_w(char const *s, int *n, char c, char d);
 int 	*strsplit_two(char const *s, char c, char d);
 void	trace(t_xy *x, t_coord *pt);
-void	get_info_map(int i, char *buf);
+void	get_info_map(t_coord *pt, char *buf);
 void	start_window(t_coord *pt);
 void	pixel_put(t_trace t, int color, t_coord *pt);
 int		ft_key(int keycode, void *param);
