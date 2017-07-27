@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 15:01:02 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/26 18:24:37 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/27 17:49:45 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		*nb_word(const char *s, char c, char d, int *w)
 	return (spl);
 }
 
-int				*strsplit_two(char const *s, char c, char d)
+int		*strsplit_two(char const *s, char c, char d)
 {
 	int		*spl;
 	int		w;
