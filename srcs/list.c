@@ -1,26 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   list.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/07/27 13:29:18 by ltran             #+#    #+#             */
+/*   Updated: 2017/07/27 14:28:20 by ltran            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <stdio.h>
+#include "../fdf.h"
 
-int	createRGB(int r, int g, int b)
-{   
-    return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
-}
-
-
-int	main(void)
+int		createRGB(t_coord *pt)
 {
-	int	r = 213;
-	int	g = 0;
-	int	b = 0;
-
-	printf("%x\n",createRGB(r,g,b));
-	return (0);
+	if (pt->r < 0)
+		pt->r = 255;
+	if (pt->g < 0)
+		pt->g = 255;
+	if (pt->b < 0)
+		pt->b = 255;
+    return ((pt->r & 0xff) << 16) + ((pt->g & 0xff) << 8) + (pt->b & 0xff);
 }
-
-
-/*
-unsigned long createRGBA(int r, int g, int b, int a)
-{   
-    return ((r & 0xff) << 24) + ((g & 0xff) << 16) + ((b & 0xff) << 8)
-           + (a & 0xff);
-}*/

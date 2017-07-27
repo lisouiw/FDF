@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/26 18:19:03 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/27 16:06:22 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,17 @@ int			ft_key(int keycode, void *param)
 		((t_coord*)param)->zm += ((t_coord*)param)->s_zm;
 	if (keycode == 78 && ((t_coord*)param)->zm - ((t_coord*)param)->s_zm > 1)
 		((t_coord*)param)->zm -= ((t_coord*)param)->s_zm;
+	if (keycode == 83)
+		((t_coord*)param)->r -= 5;
+	if (keycode == 84)
+		((t_coord*)param)->g -= 5;
+	if (keycode == 85)
+		((t_coord*)param)->b -= 5;
+	//if (keycode == 85)
+//		((t_coord*)param)->b -= 5;
+//	if (keycode == 85)
+//		((t_coord*)param)->b -= 5;
+
 	mlx_destroy_image(((t_coord*)param)->mlx, ((t_coord*)param)->img);
 	start_window((t_coord*)param);
 	return (0);
@@ -157,6 +168,20 @@ t_xy		*lst_yx(t_coord *pt, t_xy *yx)
 	return (yx);
 }
 
+void	create_menu(t_coord *pt)
+{
+	mlx_string_put(pt->mlx, pt->win, 5, 5, createRGB(pt), "ZOOM IN  : +");
+	mlx_string_put(pt->mlx, pt->win, 5, 20, createRGB(pt), "ZOOM OUT : -");
+	mlx_string_put(pt->mlx, pt->win, 5, 45, createRGB(pt), "RED   : ");
+	mlx_string_put(pt->mlx, pt->win, 80, 45, createRGB(pt), ft_itoa(pt->r));
+	mlx_string_put(pt->mlx, pt->win, 5, 60, createRGB(pt), "GREEN : ");
+	mlx_string_put(pt->mlx, pt->win, 80, 60, createRGB(pt), ft_itoa(pt->g));
+	mlx_string_put(pt->mlx, pt->win, 5, 75, createRGB(pt), "BLUE  : ");
+	mlx_string_put(pt->mlx, pt->win, 80, 75, createRGB(pt), ft_itoa(pt->b));
+	mlx_string_put(pt->mlx, pt->win, 5, 95, createRGB(pt),
+			"MOVEMENT <DIRECTIONAL ARROW>");
+}
+
 void		start_window(t_coord *pt)
 {
 	t_xy	*xy;
@@ -181,6 +206,7 @@ void		start_window(t_coord *pt)
 	pt->adr = mlx_get_data_addr(pt->img, &(pt->bit), &(pt->line), &(pt->endian));
 	trace_gril(pt, xy, yx);
 	mlx_put_image_to_window(pt->mlx, pt->win, pt->img, 0, 0);
+	create_menu(pt);
 	mlx_hook(pt->win, 2, 3, ft_key, pt);
 	mlx_loop(pt->mlx);
 }
@@ -216,8 +242,9 @@ void		get_info_map(t_coord *pt, char *buf)
 {
 	pt = (t_coord*)malloc(sizeof(t_coord));
 	pt->map = ft_strsplit(buf, '\n');
-//	map = ft_strsplit(buf, '\n');
-//	pt->ln = map;
+	pt->r = 255;
+	pt->g = 255;
+	pt->b = 255;
 	pt = verif_map(pt->map, pt, 0, 0);
 	if (pt->y == -1)
 		err(NULL, 1);

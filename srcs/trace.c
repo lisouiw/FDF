@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/10 14:41:22 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/24 18:21:11 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/27 14:11:06 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	trace_yx(t_trace t, int y, t_coord *pt)
 	while (i <= y)
 	{
 		if (t.y1 > -1 && t.y1 < 1400 && t.x1 > -1 && t.x1 < 2560)
-			pixel_put(t, 13959168, pt);
+			pixel_put(t, createRGB(pt), pt);
 		++i;
 		t.y1 += t.yinc;
 		t.ey -= dx;
@@ -48,7 +48,7 @@ void	trace_xy(t_trace t, int x, t_coord *pt)
 	while (i <= x)
 	{
 		if (t.x1 > -1 && t.x1 < 2560 && t.y1 > -1 && t.y1 < 1400)
-			pixel_put(t, 0X00F46269, pt);
+			pixel_put(t, createRGB(pt), pt);
 		++i;
 		t.x1 += t.xinc;
 		t.ex -= dy;
