@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/27 17:23:00 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/27 21:00:41 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/27 21:05:00 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ int			main(int ac, char **av)
 		while (bufi[++i])
 			++(pt->x);
 	}
-	else
-		return (0);
 	while (get_next_line(op, &line) == 1 && i == pt->x && ++(pt->y))
 	{
 		i = -1;
@@ -56,9 +54,8 @@ int			main(int ac, char **av)
 		bufi = ft_strsplit(line, ' ');
 		while (bufi[++i])
 			;
-		if (i != (pt->x))
-			return (0);
 	}
-	get_info_map(pt, buf);
+	if (i == (pt->x) && i > 0)
+		get_info_map(pt, buf);
 	return (0);
 }
