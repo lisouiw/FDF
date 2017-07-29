@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/10 14:41:22 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/27 17:55:50 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/29 15:14:14 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	trace_xy(t_trace t, int x, t_coord *pt)
 	i = 0;
 	while (i <= x)
 	{
-		if (t.x1 > -1 && t.x1 < X && t.y1 > -1 && t.y1 < Y )
+		if (t.x1 > -1 && t.x1 < X && t.y1 > -1 && t.y1 < Y)
 			pixel_put(t, rgb_to_hexa(pt), pt);
 		++i;
 		t.x1 += t.xinc;

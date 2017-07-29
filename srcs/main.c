@@ -6,13 +6,25 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/27 17:23:00 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/27 21:05:00 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/29 16:40:29 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-void		get_info_map(t_coord *pt, char *buf)
+char	*join(char *buf, char *c, char *str, char **bufi)
+{
+	char	*new;
+
+	new = ft_strjoin(buf, c);
+	free(buf);
+	buf = ft_strjoin(new, str);
+	free(str);
+	free(bufi);
+	return (buf);
+}
+
+int		map(t_coord *pt, char *buf)
 {
 	pt->r = 255;
 	pt->g = 255;
@@ -20,42 +32,33 @@ void		get_info_map(t_coord *pt, char *buf)
 	pt->buf = strsplit_two(buf, ' ', '\n');
 	pt->zm = 0;
 	start_window(pt, NULL, NULL);
+	return (1);
 }
 
-int			main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	t_coord		*pt;
-	int		op;
-	char	*line;
-	char	*buf;
-	char	**bufi;
-	int		i;
+	char		*buf;
+	char		**bufi;
+	int			i;
 
 	pt = (t_coord*)malloc(sizeof(t_coord));
-	buf = NULL;
 	pt->y = 1;
 	pt->x = 0;
 	i = -1;
-	op = open(av[1], O_RDONLY);
-	if (ac != 2 || op < 0 || ((i = get_next_line(op, &line)) == -1))
+	pt->op = open(av[1], O_RDONLY);
+	if (ac != 2 || pt->op < 0 || ((i = get_next_line(pt->op, &(pt->ln))) == -1))
 		return (err(strerror(errno), 0));
-	else if (i == 1 && (i = -1))
-	{
-		buf = line;
-		bufi = ft_strsplit(line, ' ');
-		while (bufi[++i])
-			++(pt->x);
-	}
-	while (get_next_line(op, &line) == 1 && i == pt->x && ++(pt->y))
+	i = 0;
+	buf = pt->ln;
+	while (get_next_line(pt->op, &pt->ln) == 1 && i == pt->x && ++(pt->y))
 	{
 		i = -1;
-		buf = ft_strjoin(buf, " ");
-		buf = ft_strjoin(buf, line);
-		bufi = ft_strsplit(line, ' ');
+		bufi = ft_strsplit(pt->ln, ' ');
 		while (bufi[++i])
 			;
+		pt->x = (pt->x == 0) ? i : pt->x;
+		buf = join(buf, " ", pt->ln, bufi);
 	}
-	if (i == (pt->x) && i > 0)
-		get_info_map(pt, buf);
-	return (0);
+	return (i == (pt->x) && i > 0) ? map(pt, buf) : (err(strerror(errno), 1));
 }

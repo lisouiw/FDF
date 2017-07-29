@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/27 20:58:37 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/29 16:40:35 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include "./libft/libft.h"
-#include "./get_next_line.h"
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <errno.h>
@@ -81,7 +80,7 @@ typedef struct		s_trace
 	int				yinc;
 }					t_trace;
 
-void		get_info_map(t_coord *pt, char *buf);
+int			map(t_coord *pt, char *buf);
 int			ft_key(int keycode, void *param);
 int			ft_key2(int keycode, void *param);
 void		pixel_put(t_trace t, int color, t_coord *pt);

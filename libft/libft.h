@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 17:17:48 by ltran             #+#    #+#             */
-/*   Updated: 2017/06/23 14:38:10 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/29 15:01:55 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/uio.h>
 # include <stdio.h>
 # include <string.h>
+#include "get_next_line.h"
 
 typedef struct		s_list
 {
@@ -96,5 +97,6 @@ void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list*(f)(t_list *elem));
+int					get_next_line(int fd, char **line);
 
 #endif
