@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/27 18:12:51 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/29 15:12:59 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/29 16:53:34 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,14 @@ void	start_window(t_coord *pt, t_xy *xy, t_xy *yx)
 		pt->mlx = mlx_init();
 		giv_zoom(pt, -1);
 		pt->win = mlx_new_window(pt->mlx, X, Y, "Coffee");
-		xy = lst_xy(pt, NULL);
+		xy = lst_xy(pt, NULL, -1, 0);
 		yx = lst_yx(pt, NULL);
 		pt->dex = (-1 * pt->xmin) + (X - (pt->xmax - pt->xmin)) / 2;
 		pt->dey = (-1 * pt->ymin) + (Y - (pt->ymax - pt->ymin)) / 2;
 	}
 	else
 	{
-		xy = lst_xy(pt, NULL);
+		xy = lst_xy(pt, NULL, -1, 0);
 		yx = lst_yx(pt, NULL);
 	}
 	pt->img = mlx_new_image(pt->mlx, X, Y);

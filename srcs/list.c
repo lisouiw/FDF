@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/27 17:51:03 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/29 17:57:53 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,8 @@ t_xy	*add_x(int x, int y, t_xy *xy, t_coord *pt)
 	return (new);
 }
 
-t_xy	*lst_xy(t_coord *pt, t_xy *xy)
+t_xy	*lst_xy(t_coord *pt, t_xy *xy, int y, int x)
 {
-	int		y;
-	int		x;
-
-	y = -1;
 	pt->xmax = ((0 - pt->buf[0]) - (0 - pt->buf[0])) * pt->zm;
 	pt->xmin = pt->xmax;
 	pt->ymax = ((0 - pt->buf[0]) + (0 - pt->buf[0])) * (pt->zm / 2);
@@ -54,9 +50,8 @@ t_xy	*lst_xy(t_coord *pt, t_xy *xy)
 	while (++y < pt->y + 1)
 	{
 		x = -1;
-		while (++x < pt->x - 1 && y < pt->y)
+		while (++x < pt->x - 1 && y < pt->y && (xy = add_x(x, y, xy, pt)))
 		{
-			xy = add_x(x, y, xy, pt);
 			if ((pt->xk = (xy->xx - xy->yy)) > pt->xmax)
 				pt->xmax = pt->xk;
 			if (pt->xk < pt->xmin)

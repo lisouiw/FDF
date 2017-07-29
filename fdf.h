@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/29 16:40:35 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/29 16:51:56 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <errno.h>
+#include <limits.h>
 
 typedef struct		s_xy
 {
@@ -91,7 +92,7 @@ void		giv_zoom(t_coord *pt, int y);
 void		trace_gril(t_coord *pt, t_xy *xy, t_xy *yx);
 t_xy		*add_x(int x, int y, t_xy *xy, t_coord *pt);
 t_xy		*add_y(int x, int y, t_xy *yx, t_coord *pt);
-t_xy		*lst_xy(t_coord *pt, t_xy *xy);
+t_xy		*lst_xy(t_coord *pt, t_xy *xy, int y, int x);
 t_xy		*lst_yx(t_coord *pt, t_xy *yx);
 void		trace_xy(t_trace t, int x, t_coord *pt);
 void		trace_yx(t_trace t, int y, t_coord *pt);
