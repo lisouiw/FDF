@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/27 18:12:51 by ltran             #+#    #+#             */
-/*   Updated: 2017/08/01 00:56:29 by ltran            ###   ########.fr       */
+/*   Updated: 2017/08/01 01:36:28 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ void	create_menu(t_coord *pt)
 	mlx_string_put(pt->mlx, pt->win, 5, 90, rgb_to_hexa(pt), "R -|1| +|4|");
 	mlx_string_put(pt->mlx, pt->win, 5, 105, rgb_to_hexa(pt), "G -|2| +|5|");
 	mlx_string_put(pt->mlx, pt->win, 5, 120, rgb_to_hexa(pt), "B -|3| +|6|");
-	mlx_string_put(pt->mlx, pt->win, 5, 1300, rgb_to_hexa(pt),
-			"MOVEMENT <DIRECTIONAL ARROW>");
 	mlx_string_put(pt->mlx, pt->win, 5, 1350, rgb_to_hexa(pt),
+			"MOVEMENT <DIRECTIONAL ARROW>");
+	mlx_string_put(pt->mlx, pt->win, 5, 1325, rgb_to_hexa(pt),
 			"HEIGH -|/| +|*|");
 
 }

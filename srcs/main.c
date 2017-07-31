@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/27 17:23:00 by ltran             #+#    #+#             */
-/*   Updated: 2017/08/01 01:24:43 by ltran            ###   ########.fr       */
+/*   Updated: 2017/08/01 01:35:32 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int		main(int ac, char **av)
 	int			i;
 
 	pt = start(ac, NULL);
-	i = -1;
 	pt->op = open(av[1], O_RDONLY);
 	if (pt->op < 0 || ((i = get_next_line(pt->op, &(pt->ln))) == -1))
 		return (err(strerror(errno), 0));
