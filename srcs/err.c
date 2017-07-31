@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 17:38:51 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/31 12:55:28 by ltran            ###   ########.fr       */
+/*   Updated: 2017/08/01 01:14:51 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		err(char *str, int i)
 	if (i == 1)
 		ft_putstr("map invalid\n");
 	if (i == 2)
-		ft_putstr("Fail malloc\n");
+		ft_putstr("FAIL MALLOC\n");
 	if (i == 3)
 		ft_putendl(str);
 	return (0);

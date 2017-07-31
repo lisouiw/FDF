@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/27 18:12:51 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/31 23:28:21 by ltran            ###   ########.fr       */
+/*   Updated: 2017/08/01 00:56:29 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,21 @@
 
 void	trace_gril(t_coord *pt, t_xy *xy, t_xy *yx)
 {
+	t_xy	*tmp;
+
 	while (xy != NULL)
 	{
+		tmp = xy->next;
 		trace(xy, pt);
-		xy = xy->next;
+		free(xy);
+		xy = tmp;
 	}
 	while (yx != NULL)
 	{
+		tmp = yx->next;
 		trace(yx, pt);
-		yx = yx->next;
+		free(yx);
+		yx = tmp;
 	}
 }
 
@@ -71,6 +77,7 @@ void	create_menu(t_coord *pt)
 			"MOVEMENT <DIRECTIONAL ARROW>");
 	mlx_string_put(pt->mlx, pt->win, 5, 1350, rgb_to_hexa(pt),
 			"HEIGH -|/| +|*|");
+
 }
 
 void	start_window(t_coord *pt, t_xy *xy, t_xy *yx)

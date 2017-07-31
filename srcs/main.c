@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/27 17:23:00 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/31 23:17:49 by ltran            ###   ########.fr       */
+/*   Updated: 2017/08/01 01:24:43 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,23 @@ char	*join(char *buf, char *c, char *str, char **bufi)
 	return (buf);
 }
 
+t_coord		*start(int ac, t_coord *pt)
+{
+	if (ac != 2)
+	{
+		err("usage : ./fdf [file]", 3);
+		exit(0);
+	}
+	if (!(pt = (t_coord*)malloc(sizeof(t_coord))))
+	{
+		err(NULL, 2);
+		exit(0);
+	}
+	pt->y = 1;
+	pt->x = 0;
+	return (pt);
+}
+
 int		main(int ac, char **av)
 {
 	t_coord		*pt;
@@ -45,12 +62,10 @@ int		main(int ac, char **av)
 	char		**bufi;
 	int			i;
 
-	pt = (t_coord*)malloc(sizeof(t_coord));
-	pt->y = 1;
-	pt->x = 0;
+	pt = start(ac, NULL);
 	i = -1;
 	pt->op = open(av[1], O_RDONLY);
-	if (ac != 2 || pt->op < 0 || ((i = get_next_line(pt->op, &(pt->ln))) == -1))
+	if (pt->op < 0 || ((i = get_next_line(pt->op, &(pt->ln))) == -1))
 		return (err(strerror(errno), 0));
 	i = 0;
 	buf = pt->ln;
