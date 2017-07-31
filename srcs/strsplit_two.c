@@ -6,13 +6,13 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 15:01:02 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/31 13:31:36 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/31 23:10:43 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-int		size_w(char const *s, int *n, char c, char d)
+int		size_w(char *s, int *n, char c, char d)
 {
 	int		i;
 
@@ -22,7 +22,11 @@ int		size_w(char const *s, int *n, char c, char d)
 		if (s[*n] != c && s[*n] != d)
 		{
 			while (s[*n + i] != c && s[*n + i] != d && s[*n + i] != '\0')
+			{
 				++i;
+				if (s[*n + i - 1] == ',')
+					s[*n + i - 1] = '\0';
+			}
 			*n += i;
 			return (ft_atoi(ft_strsub(s, *n - i, i)));
 		}
@@ -31,7 +35,7 @@ int		size_w(char const *s, int *n, char c, char d)
 	return (0);
 }
 
-int		*nb_word(const char *s, char c, char d, int *w)
+int		*nb_word(char *s, char c, char d, int *w)
 {
 	int		i;
 	int		*spl;
@@ -55,7 +59,7 @@ int		*nb_word(const char *s, char c, char d, int *w)
 	return (spl);
 }
 
-int		*strsplit_two(char const *s, char c, char d)
+int		*strsplit_two(char *s, char c, char d)
 {
 	int		*spl;
 	int		w;
@@ -71,6 +75,8 @@ int		*strsplit_two(char const *s, char c, char d)
 	{
 		spl[i] = (int)malloc(sizeof(int));
 		spl[i] = size_w(s, &n, c, d);
+		if (spl[i] > 1300)
+			spl[i] = 1300;
 	}
 	return (spl);
 }

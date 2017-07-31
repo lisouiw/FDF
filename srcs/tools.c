@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:42:55 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/29 16:43:19 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/31 23:20:48 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		ft_key(int keycode, void *param)
 		((t_coord*)param)->dey += 25;
 	if (keycode == 69)
 		((t_coord*)param)->zm += ((t_coord*)param)->s_zm;
-	if (keycode == 78 && ((t_coord*)param)->zm - ((t_coord*)param)->s_zm > 1)
+	if (keycode == 78 && ((t_coord*)param)->zm - ((t_coord*)param)->s_zm > -1)
 		((t_coord*)param)->zm -= ((t_coord*)param)->s_zm;
 	return (ft_key2(keycode, param));
 }

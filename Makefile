@@ -6,7 +6,7 @@
 #    By: ltran <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/06/23 14:18:46 by ltran             #+#    #+#              #
-#    Updated: 2017/07/31 10:44:22 by ltran            ###   ########.fr        #
+#    Updated: 2017/07/31 19:12:55 by ltran            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ FLAGS = -Wall -Werror -Wextra
 
 SRCS = main.c win.c tools.c trace.c strsplit_two.c list.c err.c
 
-F_MLX = -lmlx -framework OpenGL -framework AppKit
+F_MLX = -Lminilibx_macos -lmlx -framework OpenGL -framework AppKit
 
 SRC_N = $(addprefix $(SRCDIR)/, $(SRCS))
 

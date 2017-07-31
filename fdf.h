@@ -6,7 +6,7 @@
 /*   By: ltran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 15:49:25 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/29 16:51:56 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/31 19:28:51 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_xy		*lst_yx(t_coord *pt, t_xy *yx);
 void		trace_xy(t_trace t, int x, t_coord *pt);
 void		trace_yx(t_trace t, int y, t_coord *pt);
 void		trace(t_xy *x, t_coord *pt);
-int			*strsplit_two(char const *s, char c, char d);
+int			*strsplit_two(char *s, char c, char d);
 int			err(char *str, int i);
 
 #endif
