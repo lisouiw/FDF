@@ -6,7 +6,7 @@
 /*   By: ltran <ltran@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:34:43 by ltran             #+#    #+#             */
-/*   Updated: 2017/07/29 17:54:06 by ltran            ###   ########.fr       */
+/*   Updated: 2017/07/31 12:13:11 by ltran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,21 @@ int				ft_atoi(const char *str)
 	nb = 0;
 	ent = 0;
 	sgn = 0;
-	if (*str == '-' && ft_strcmp(str, "-2147483648") > 0)
-		return (-2147483648);
-	if (ft_strcmp(str, "+2147483647") > 0 || ft_strcmp(str, "2147483647") > 0)
-		return (2147483647);
 	while (*str == '\f' || *str == '\v' || *str == '\r' ||
 		*str == '\n' || *str == ' ' || *str == '\t')
 		++str;
+	if (*str == '-' && ft_strlen(str) >= 10 &&
+			ft_strcmp("-2147483648", str) >= 0)
+		return (-2147483648);
 	if (*str == '+' || ((*str == '-') && (sgn = 1)))
 		++str;
+	if (ft_strlen(str) >= 10 && ft_strcmp("2147483647", str) >= 0)
+		return (2147483647);
 	else if (!ft_isdigit(*str))
 		return (0);
-	while (*str >= '0' && *str <= '9' && (ent = *str - 48))
+	while (*str >= '0' && *str <= '9')
 	{
-		nb = nb * 10 + ent;
+		nb = nb * 10 + (*str - 48);
 		++str;
 	}
 	return (nb = (sgn == 1) ? -(nb) : nb);
